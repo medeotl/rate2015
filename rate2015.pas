@@ -1,6 +1,6 @@
 PROGRAM CALCOLO_INTERESSI_E_RATE_(input,output);
 uses crt,printer;
-  VAR  scelta,sc_rate,tipo_stampa:CHAR;
+  VAR  tipo_calcolo,tipo_rata,tipo_stampa:CHAR;
        v,k,j,h,conta,conta2,conta3,operazioni,rate:INTEGER;
        m,l,minimo,massimo,rata_semestrale,percentuale,e,x,prestito,inter:REAL;
 
@@ -20,7 +20,7 @@ uses crt,printer;
                END;
              IF conta=rate THEN BEGIN
                   writeln;
-                  IF sc_rate='m' THEN writeln('   numero rate    rata mensile       capitale residuo          interesse')
+                  IF tipo_rata='m' THEN writeln('   numero rate    rata mensile       capitale residuo          interesse')
                                  ELSE writeln('   numero rate   rata semestrale     capitale residuo          interesse');
                 END
            END
@@ -66,12 +66,12 @@ uses crt,printer;
         gotoxy(30,13);writeln('S    PER RATA SEMESTRALE');
         gotoxy(30,17);writeln('X    PER FINE LAVORO');
         gotoxy(36,22);writeln('SCELTA:');
-        gotoxy(45,22);readln(sc_rate);
-        CASE sc_rate OF
+        gotoxy(45,22);readln(tipo_rata);
+        CASE tipo_rata OF
                     'm': BEGIN v:=1200; k:=9000; j:=8; END;
                     's': BEGIN v:=200; k:=1500; j:=8; END;
                     END;
-      UNTIL (sc_rate='m') or (sc_rate='s') or (sc_rate='x');
+      UNTIL (tipo_rata='m') or (tipo_rata='s') or (tipo_rata='x');
     END;
 
   PROCEDURE Menu1;
@@ -87,8 +87,8 @@ uses crt,printer;
 
   PROCEDURE Principale;
     BEGIN
-      gotoxy(55,22);readln(scelta);
-      CASE scelta OF
+      gotoxy(55,22);readln(tipo_calcolo);
+      CASE tipo_calcolo OF
                     'r': Calcolo_Rate;
                     'i': Calcolo_Interessi;
                     's': Scelta_Rate;
@@ -160,13 +160,13 @@ uses crt,printer;
   PROCEDURE Calcolo_Interessi;
     BEGIN
       clrscr;gotoxy(26,5);writeln('PRESTITO LIRE: ');
-      gotoxy(26,10);IF sc_rate='m' THEN writeln('RATA MENSILE:')
+      gotoxy(26,10);IF tipo_rata='m' THEN writeln('RATA MENSILE:')
                                    ELSE writeln('RATA SEMESTRALE:');
       gotoxy(26,15);writeln('NUMERO RATE:');
       gotoxy(21,22);writeln('STAMPA A VIDEO O SU CARTA (v/c): ');
       gotoxy(41,5);readln(prestito);
-      IF sc_rate='m' THEN gotoxy(40,10)
-                     ELSE gotoxy(43,10);
+      IF tipo_rata='m' THEN gotoxy(40,10)
+                       ELSE gotoxy(43,10);
       readln(rata_semestrale);
       gotoxy(39,15);readln(rate);
       gotoxy(54,22);readln(tipo_stampa);
@@ -226,8 +226,10 @@ uses crt,printer;
         IF conta=rate
         THEN BEGIN
             writeln(lst);
-            IF sc_rate='m' THEN writeln(lst,'   numero rate   rata mensile        capitale residuo         interesse')
-            ELSE writeln(lst,'   numero rate  rata semestrale      capitale residuo         interesse');
+            IF tipo_rata='m' THEN
+                               writeln(lst,'   numero rate   rata mensile        capitale residuo         interesse')
+                             ELSE
+                               writeln(lst,'   numero rate  rata semestrale      capitale residuo         interesse');
         END;
       UNTIL conta=rate;
       gotoxy(35,25);write('premi invio ');gotoxy(30,35);readln;
@@ -237,7 +239,7 @@ uses crt,printer;
     BEGIN
       writeln(lst); writeln(lst);
       writeln(lst,'        PRESTITO LIRE: ',prestito:18:0);
-      IF sc_rate='m'
+      IF tipo_rata='m'
              THEN writeln(lst,'        RATA MENSILE: ',rata_semestrale:19:0)
              ELSE writeln(lst,'        RATA SEMESTRALE: ',rata_semestrale:16:0);
       writeln(lst,'        NUMERO RATE: ',rate:20);
@@ -257,14 +259,14 @@ uses crt,printer;
     END;
 
 BEGIN
-  scelta:='0';
+  tipo_calcolo:='0';
   textbackground(blue);textcolor(yellow);
   Scelta_Rate;
   REPEAT
-    IF scelta<>'x' THEN
+    IF tipo_calcolo<>'x' THEN
                      BEGIN
                        Menu1;
-                       IF sc_rate<>'x' THEN Principale;
+                       IF tipo_rata<>'x' THEN Principale;
                      END;
-  UNTIL (scelta='x') or (sc_rate='x');
+  UNTIL (tipo_calcolo='x') or (tipo_rata='x');
 END.
