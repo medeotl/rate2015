@@ -161,13 +161,13 @@ uses crt,printer;
     BEGIN
       clrscr;gotoxy(26,5);writeln('PRESTITO LIRE: ');
       gotoxy(26,10);IF sc_rate='m' THEN writeln('RATA MENSILE:')
-                                  ELSE writeln('RATA SEMESTRALE:');
+                                   ELSE writeln('RATA SEMESTRALE:');
       gotoxy(26,15);writeln('NUMERO RATE:');
       gotoxy(21,22);writeln('STAMPA A VIDEO O SU CARTA (v/c): ');
       gotoxy(41,5);readln(prestito);
       IF sc_rate='m' THEN gotoxy(40,10)
                      ELSE gotoxy(43,10);
-                     readln(rata_semestrale);
+      readln(rata_semestrale);
       gotoxy(39,15);readln(rate);
       gotoxy(54,22);readln(tipo_stampa);
       IF rata_semestrale*rate<prestito*j THEN
@@ -258,7 +258,8 @@ uses crt,printer;
 
 BEGIN
   scelta:='0';
-  textbackground(blue);textcolor(yellow);Scelta_Rate;
+  textbackground(blue);textcolor(yellow);
+  Scelta_Rate;
   REPEAT
     IF scelta<>'x' THEN
                      BEGIN
