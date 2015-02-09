@@ -4,7 +4,7 @@ uses crt,printer;
        v,k,j,h,conta,conta2,conta3,operazioni,rate:INTEGER;
        m,l,minimo,massimo,rata_semestrale,percentuale,e,x,prestito,inter:REAL;
 
-  PROCEDURE do_loop1(zz:integer);
+  PROCEDURE Do_Loop1(zz:integer);
     BEGIN
       clrscr;
       conta:=1;
@@ -30,7 +30,7 @@ uses crt,printer;
          END;
     END;
 
-  PROCEDURE  do_loop2(zz:integer);
+  PROCEDURE  Do_Loop2(zz:integer);
     BEGIN
       clrscr;
       x:=prestito;conta:=1;
@@ -54,10 +54,10 @@ uses crt,printer;
          END;
   END;
 
-  PROCEDURE calcolo_interessi;FORWARD;
-  PROCEDURE calcolo_rate;FORWARD;
+  PROCEDURE Calcolo_Interessi;FORWARD;
+  PROCEDURE Calcolo_Rate;FORWARD;
 
-  PROCEDURE scelta_rate;
+  PROCEDURE Scelta_Rate;
     BEGIN
       REPEAT
         clrscr;
@@ -74,7 +74,7 @@ uses crt,printer;
       UNTIL (sc_rate='m') or (sc_rate='s') or (sc_rate='x');
     END;
 
-  PROCEDURE menu1;
+  PROCEDURE Menu1;
     BEGIN
       operazioni:=0; minimo:=1000; massimo:=1000000000000.0;
       clrscr;
@@ -85,22 +85,22 @@ uses crt,printer;
       gotoxy(27,22);write('PREMERE      R   I   S   X ');
     END;
 
-  PROCEDURE principale;
+  PROCEDURE Principale;
     BEGIN
       gotoxy(55,22);readln(scelta);
       CASE scelta OF
-                  'r': calcolo_rate;
-                  'i': calcolo_interessi;
-                  's': scelta_rate;
-                  'x': BEGIN END
+                    'r': Calcolo_Rate;
+                    'i': Calcolo_Interessi;
+                    's': Scelta_Rate;
+                    'x': BEGIN END
                   ELSE
-                  menu1;
-                  END;
+                    Menu1;
+      END; (* fine CASE OF *)
     END;
 
-  PROCEDURE stampa_loop1(zz:integer); FORWARD;
+  PROCEDURE Stampa_Loop1(zz:integer); FORWARD;
 
-  PROCEDURE calcolo_rate;
+  PROCEDURE Calcolo_Rate;
     BEGIN
       clrscr;gotoxy(26,5);write('PRESTITO LIRE: ');
       gotoxy(26,10);write('PERCENTUALE: ');
@@ -116,7 +116,7 @@ uses crt,printer;
             e:=prestito/rate;conta3:=0;m:=10000000000.0;
             REPEAT
               operazioni:=operazioni+1;x:=prestito;
-              do_loop1(0);
+              Do_Loop1(0);
               IF x>0 THEN e:=e+m;
                 IF x<0 THEN BEGIN
                            e:=e-m;conta3:=conta3+1;
@@ -138,26 +138,26 @@ uses crt,printer;
                          END;
             UNTIL (conta3=14) OR (operazioni=250);
             e:=e+0.001;x:=prestito;
-            IF tipo_stampa='c' THEN stampa_loop1(1)
-                               ELSE do_loop1(1);
+            IF tipo_stampa='c' THEN Stampa_Loop1(1)
+                               ELSE Do_Loop1(1);
           END
-          ELSE BEGIN
+          ELSE BEGIN (* valore del prestito errato *)
             gotoxy(10,24);write('A PRESTITO METTERE UN NUMERO DA  4  A  12  CIFRE:  PREMI INVIO ');
             readln;
           END
-        ELSE BEGIN
+        ELSE BEGIN (* percentuale*rate>=k *)
           gotoxy(16,24);write('PERCENTUALE O RATE TROPPO GRANDI:  PREMI INVIO ');
           readln;
         END
-      ELSE BEGIN
+      ELSE BEGIN (* numero rate errato *)
         gotoxy(13,24);write('IMMETTERE ALMENO 2 RATE O MENO DI 32000:  PREMI INVIO ');
         readln;
       END
     END;
 
-  PROCEDURE stampa_loop2; FORWARD;
+  PROCEDURE Stampa_Loop2; FORWARD;
 
-  PROCEDURE calcolo_interessi;
+  PROCEDURE Calcolo_Interessi;
     BEGIN
       clrscr;gotoxy(26,5);writeln('PRESTITO LIRE: ');
       gotoxy(26,10);IF sc_rate='m' THEN writeln('RATA MENSILE:')
@@ -176,7 +176,7 @@ uses crt,printer;
             conta2:=0;e:=1;l:=10;
               REPEAT
                 operazioni:=operazioni+1;
-                do_loop2(0);
+                Do_Loop2(0);
                 IF x<0 THEN e:=e+l;
                 IF x>0 THEN BEGIN
                            e:=e-l;conta2:=conta2+1;
@@ -194,8 +194,8 @@ uses crt,printer;
                                      END;
                          END;
               UNTIL (conta2=11) OR (operazioni=470);e:=e+0.0000000001;
-              IF tipo_stampa='v' THEN do_loop2(1)
-                                 ELSE stampa_loop2;
+              IF tipo_stampa='v' THEN Do_Loop2(1)
+                                 ELSE Stampa_Loop2;
           END
             ELSE BEGIN
               gotoxy(10,24);write('A PRESTITO METTERE UN NUMERO DA  4  A  12  CIFRE:  PREMI INVIO ');
@@ -211,7 +211,7 @@ uses crt,printer;
         END
     END;
 
-  PROCEDURE stampa_loop1;
+  PROCEDURE Stampa_Loop1;
     BEGIN
       writeln(lst); writeln(lst);
       writeln(lst,'        PRESTITO LIRE: ',prestito:18:0);
@@ -233,7 +233,7 @@ uses crt,printer;
       gotoxy(35,25);write('premi invio ');gotoxy(30,35);readln;
     END;
 
-  PROCEDURE stampa_loop2;
+  PROCEDURE Stampa_Loop2;
     BEGIN
       writeln(lst); writeln(lst);
       writeln(lst,'        PRESTITO LIRE: ',prestito:18:0);
@@ -246,7 +246,7 @@ uses crt,printer;
       x:=x+(x*e/v)-rata_semestrale;
       writeln(lst,'  ',conta:7,'  ',e:26:9,'  ',x:26:2);
       REPEAT
-        conta:=conta+1; x:=x+(x*e/v)-rata_semestrale;
+        conta:=conta+1; x:=x+(x*e/v)-rata_semestrale; 
         writeln(lst,'  ',conta:7,'  ',e:26:9,'  ',x:26:2);
         IF conta=rate THEN BEGIN
                           writeln(lst);
@@ -258,12 +258,12 @@ uses crt,printer;
 
 BEGIN
   scelta:='0';
-  textbackground(blue);textcolor(yellow);scelta_rate;
+  textbackground(blue);textcolor(yellow);Scelta_Rate;
   REPEAT
     IF scelta<>'x' THEN
                      BEGIN
-                       menu1;
-                       IF sc_rate<>'x' THEN principale;
+                       Menu1;
+                       IF sc_rate<>'x' THEN Principale;
                      END;
   UNTIL (scelta='x') or (sc_rate='x');
 END.
