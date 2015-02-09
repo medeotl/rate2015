@@ -1,12 +1,15 @@
 PROGRAM CALCOLO_INTERESSI_E_RATE_(input,output);
 uses crt,printer;
   VAR  scelta,sc_rate,tipo_stampa:CHAR;
-       v,k,j,h,conta3,conta2,operazioni,conta,rate:INTEGER;
+       v,k,j,h,conta,conta2,conta3,operazioni,rate:INTEGER;
        m,l,minimo,massimo,rata_semestrale,percentuale,e,x,prestito,inter:REAL;
 
   PROCEDURE do_loop1(zz:integer);
     BEGIN
-      conta:=1;clrscr;inter:=x*percentuale/v;x:=(x+inter-e);
+      clrscr;
+      conta:=1;
+      inter:=x*percentuale/v;
+      x:=(x+inter-e);
       writeln('  ',conta:7,'  ',e:19:2,'  ',x:20:2,'  ',inter:19:2);
       REPEAT
         conta:=conta+1;inter:=x*percentuale/v;x:=(x+inter-e);
@@ -29,7 +32,8 @@ uses crt,printer;
 
   PROCEDURE  do_loop2(zz:integer);
     BEGIN
-      x:=prestito;conta:=1;clrscr;
+      clrscr;
+      x:=prestito;conta:=1;
       x:=x+(x*e/v)-rata_semestrale;clrscr;
       writeln('  ',conta:10,'  ',e:28:9,'  ',x:26:2);
       REPEAT
@@ -53,7 +57,7 @@ uses crt,printer;
   PROCEDURE calcolo_interessi;FORWARD;
   PROCEDURE calcolo_rate;FORWARD;
 
-  PROCEDURE SCELTA_RATE;
+  PROCEDURE scelta_rate;
     BEGIN
       REPEAT
         clrscr;
@@ -70,7 +74,7 @@ uses crt,printer;
       UNTIL (sc_rate='m') or (sc_rate='s') or (sc_rate='x');
     END;
 
-  PROCEDURE MENU1;
+  PROCEDURE menu1;
     BEGIN
       operazioni:=0; minimo:=1000; massimo:=1000000000000.0;
       clrscr;
@@ -112,7 +116,7 @@ uses crt,printer;
             e:=prestito/rate;conta3:=0;m:=10000000000.0;
             REPEAT
               operazioni:=operazioni+1;x:=prestito;
-                   DO_LOOP1(0);
+              do_loop1(0);
               IF x>0 THEN e:=e+m;
                 IF x<0 THEN BEGIN
                            e:=e-m;conta3:=conta3+1;
@@ -134,8 +138,8 @@ uses crt,printer;
                          END;
             UNTIL (conta3=14) OR (operazioni=250);
             e:=e+0.001;x:=prestito;
-            IF tipo_stampa='c' THEN STAMPA_LOOP1(1)
-                               ELSE DO_LOOP1(1);
+            IF tipo_stampa='c' THEN stampa_loop1(1)
+                               ELSE do_loop1(1);
           END
           ELSE BEGIN
             gotoxy(10,24);write('A PRESTITO METTERE UN NUMERO DA  4  A  12  CIFRE:  PREMI INVIO ');
