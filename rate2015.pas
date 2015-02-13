@@ -57,7 +57,7 @@ uses crt,printer;
   PROCEDURE Calcolo_Interessi;FORWARD;
   PROCEDURE Calcolo_Rate;FORWARD;
 
-  PROCEDURE Scelta_Rate;
+  PROCEDURE Scelta_Tipo_Rate;
     BEGIN
       REPEAT
         clrscr;
@@ -91,7 +91,7 @@ uses crt,printer;
       CASE tipo_calcolo OF
                     'r': Calcolo_Rate;
                     'i': Calcolo_Interessi;
-                    's': Scelta_Rate;
+                    's': Scelta_Tipo_Rate;
                     'x': BEGIN END
                   ELSE
                     Menu1;
@@ -264,7 +264,7 @@ BEGIN
 
   tipo_calcolo:='0';
   textbackground(blue);textcolor(yellow);
-  Scelta_Rate;
+  Scelta_Tipo_Rate;
   REPEAT
     IF tipo_calcolo<>'x' THEN
                      BEGIN
