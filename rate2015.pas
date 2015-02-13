@@ -2,7 +2,7 @@ PROGRAM CALCOLO_INTERESSI_E_RATE_(input,output);
 uses crt,printer;
   VAR  tipo_calcolo,tipo_rata,tipo_stampa:CHAR;
        v,k,j,h,conta,conta2,conta3,operazioni,rate:INTEGER;
-       m,l,minimo,massimo,rata_semestrale,percentuale,e,x,prestito,inter:REAL;
+       m,l,MINIMO,MASSIMO,rata_semestrale,percentuale,e,x,prestito,inter:REAL;
 
   PROCEDURE Do_Loop1(zz:integer);
     BEGIN
@@ -76,7 +76,7 @@ uses crt,printer;
 
   PROCEDURE Menu1;
     BEGIN
-      operazioni:=0; minimo:=1000; massimo:=1000000000000.0;
+      operazioni:=0; MINIMO:=1000; MASSIMO:=1000000000000.0;
       clrscr;
       gotoxy(29,4);write('R    PER CALCOLO RATE');
       gotoxy(29,8);write('I    PER CALCOLO INTERESSI');
@@ -112,7 +112,7 @@ uses crt,printer;
       gotoxy(54,22);readln(tipo_stampa);
       IF (rate>=2) AND (rate<=32000) THEN
         IF percentuale*rate<k  THEN
-          IF (prestito>=minimo) AND (prestito<=massimo) THEN BEGIN
+          IF (prestito>=MINIMO) AND (prestito<=MASSIMO) THEN BEGIN
             e:=prestito/rate;conta3:=0;m:=10000000000.0;
             REPEAT
               operazioni:=operazioni+1;x:=prestito;
@@ -172,7 +172,7 @@ uses crt,printer;
       gotoxy(54,22);readln(tipo_stampa);
       IF rata_semestrale*rate<prestito*j THEN
         IF rate*rata_semestrale>=prestito THEN
-          IF (prestito>=minimo) AND (prestito<=massimo) THEN BEGIN
+          IF (prestito>=MINIMO) AND (prestito<=MASSIMO) THEN BEGIN
             conta2:=0;e:=1;l:=10;
               REPEAT
                 operazioni:=operazioni+1;
@@ -229,7 +229,7 @@ uses crt,printer;
             IF tipo_rata='m' THEN
                                writeln(lst,'   numero rate   rata mensile        capitale residuo         interesse')
                              ELSE
-                               writeln(lst,'   numero rate  rata semestrale      capitale residuo         interesse');
+                               writln(lst,'   numero rate  rata semestrale      capitale residuo         interesse');
         END;
       UNTIL conta=rate;
       gotoxy(35,25);write('premi invio ');gotoxy(30,35);readln;
