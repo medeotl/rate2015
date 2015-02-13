@@ -76,7 +76,7 @@ uses crt,printer;
 
   PROCEDURE Menu1;
     BEGIN
-      operazioni:=0; MINIMO:=1000; MASSIMO:=1000000000000.0;
+      operazioni:=0; 
       clrscr;
       gotoxy(29,4);write('R    PER CALCOLO RATE');
       gotoxy(29,8);write('I    PER CALCOLO INTERESSI');
@@ -229,7 +229,7 @@ uses crt,printer;
             IF tipo_rata='m' THEN
                                writeln(lst,'   numero rate   rata mensile        capitale residuo         interesse')
                              ELSE
-                               writln(lst,'   numero rate  rata semestrale      capitale residuo         interesse');
+                               writeln(lst,'   numero rate  rata semestrale      capitale residuo         interesse');
         END;
       UNTIL conta=rate;
       gotoxy(35,25);write('premi invio ');gotoxy(30,35);readln;
@@ -259,6 +259,9 @@ uses crt,printer;
     END;
 
 BEGIN
+  (* imposto valore costanti *)
+  MINIMO:=1000; MASSIMO:=1000000000000.0;
+
   tipo_calcolo:='0';
   textbackground(blue);textcolor(yellow);
   Scelta_Rate;
