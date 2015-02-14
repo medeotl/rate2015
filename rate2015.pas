@@ -1,7 +1,7 @@
 PROGRAM CALCOLO_INTERESSI_E_RATE_(input,output);
 uses crt,printer;
   VAR  tipo_calcolo,tipo_rata,tipo_stampa:CHAR;
-       v,k,j,h,conta,conta2,conta3,operazioni,rate:INTEGER;
+       v,k,j,h,conta,conta2,conta3,operazioni,nro_rate:INTEGER;
        m,l,MINIMO,MASSIMO,rata_semestrale,percentuale,e,x,prestito,inter:REAL;
 
   PROCEDURE Do_Loop1(zz:integer);
@@ -18,13 +18,13 @@ uses crt,printer;
              IF (conta=24) or (conta=48) or (conta=72) THEN BEGIN
                  readln;clrscr;
                END;
-             IF conta=rate THEN BEGIN
+             IF conta=nro_rate THEN BEGIN
                   writeln;
                   IF tipo_rata='m' THEN writeln('   numero rate    rata mensile       capitale residuo          interesse')
                                  ELSE writeln('   numero rate   rata semestrale     capitale residuo          interesse');
                 END
            END
-      UNTIL conta=rate;
+      UNTIL conta=nro_rate;
       IF zz=1 THEN BEGIN
            gotoxy(35,25);write('premi invio ');gotoxy(30,35);readln;
          END;
@@ -43,12 +43,12 @@ uses crt,printer;
              IF (conta=24) or (conta=48) or (conta=72) THEN BEGIN
                   readln;clrscr;
                 END;
-             IF conta=rate THEN BEGIN
+             IF conta=nro_rate THEN BEGIN
                   writeln;
                   writeln('      numero rate         percentuale interesse       capitale residuo');
                 END
            END
-      UNTIL conta=rate;
+      UNTIL conta=nro_rate;
       IF zz=1 THEN BEGIN
            gotoxy(35,25);write('premi invio ');gotoxy(30,35);readln;
          END;
@@ -106,12 +106,12 @@ uses crt,printer;
       gotoxy(21,22);write('STAMPA A VIDEO O SU CARTA (v/c): ');
       gotoxy(41,5);readln(prestito);
       gotoxy(39,10);readln(percentuale);
-      gotoxy(39,15);readln(rate);
+      gotoxy(39,15);readln(nro_rate);
       gotoxy(54,22);readln(tipo_stampa);
-      IF (rate>=2) AND (rate<=32000) THEN
-        IF percentuale*rate<k  THEN
+      IF (nro_rate>=2) AND (nro_rate<=32000) THEN
+        IF percentuale*nro_rate<k  THEN
           IF (prestito>=MINIMO) AND (prestito<=MASSIMO) THEN BEGIN
-            e:=prestito/rate;conta3:=0;m:=10000000000.0;
+            e:=prestito/nro_rate;conta3:=0;m:=10000000000.0;
             REPEAT
               operazioni:=operazioni+1;x:=prestito;
               Do_Loop1(0);
@@ -143,7 +143,7 @@ uses crt,printer;
             gotoxy(10,24);write('A PRESTITO METTERE UN NUMERO DA  4  A  12  CIFRE:  PREMI INVIO ');
             readln;
           END
-        ELSE BEGIN (* percentuale*rate>=k *)
+        ELSE BEGIN (* percentuale*nro_rate>=k *)
           gotoxy(16,24);write('PERCENTUALE O RATE TROPPO GRANDI:  PREMI INVIO ');
           readln;
         END
@@ -166,10 +166,10 @@ uses crt,printer;
       IF tipo_rata='m' THEN gotoxy(40,10)
                        ELSE gotoxy(43,10);
       readln(rata_semestrale);
-      gotoxy(39,15);readln(rate);
+      gotoxy(39,15);readln(nro_rate);
       gotoxy(54,22);readln(tipo_stampa);
-      IF rata_semestrale*rate<prestito*j THEN
-        IF rate*rata_semestrale>=prestito THEN
+      IF rata_semestrale*nro_rate<prestito*j THEN
+        IF nro_rate*rata_semestrale>=prestito THEN
           IF (prestito>=MINIMO) AND (prestito<=MASSIMO) THEN BEGIN
             conta2:=0;e:=1;l:=10;
               REPEAT
@@ -214,14 +214,14 @@ uses crt,printer;
       writeln(lst); writeln(lst);
       writeln(lst,'        PRESTITO LIRE: ',prestito:18:0);
       writeln(lst,'        INTERESSE: ',percentuale:22:9);
-      writeln(lst,'        NUMERO RATE: ',rate:20);
+      writeln(lst,'        NUMERO RATE: ',nro_rate:20);
       writeln(lst); writeln(lst);
       conta:=1;clrscr;inter:=x*percentuale/v;x:=(x+inter-e);
       writeln(lst,'  ',conta:7,'  ',e:19:2,'  ',x:19:2,'  ',inter:18:2);
       REPEAT
         conta:=conta+1;inter:=x*percentuale/v;x:=(x+inter-e);
         writeln(lst,'  ',conta:7,'  ',e:19:2,'  ',x:19:2,'  ',inter:18:2);
-        IF conta=rate
+        IF conta=nro_rate
         THEN BEGIN
             writeln(lst);
             IF tipo_rata='m' THEN
@@ -229,7 +229,7 @@ uses crt,printer;
                              ELSE
                                writeln(lst,'   numero rate  rata semestrale      capitale residuo         interesse');
         END;
-      UNTIL conta=rate;
+      UNTIL conta=nro_rate;
       gotoxy(35,25);write('premi invio ');gotoxy(30,35);readln;
     END;
 
@@ -240,7 +240,7 @@ uses crt,printer;
       IF tipo_rata='m'
              THEN writeln(lst,'        RATA MENSILE: ',rata_semestrale:19:0)
              ELSE writeln(lst,'        RATA SEMESTRALE: ',rata_semestrale:16:0);
-      writeln(lst,'        NUMERO RATE: ',rate:20);
+      writeln(lst,'        NUMERO RATE: ',nro_rate:20);
       writeln(lst); writeln(lst);
       x:=prestito; conta:=1;
       x:=x+(x*e/v)-rata_semestrale;
@@ -248,11 +248,11 @@ uses crt,printer;
       REPEAT
         conta:=conta+1; x:=x+(x*e/v)-rata_semestrale; 
         writeln(lst,'  ',conta:7,'  ',e:26:9,'  ',x:26:2);
-        IF conta=rate THEN BEGIN
+        IF conta=nro_rate THEN BEGIN
                           writeln(lst);
                           writeln(lst,'   numero rate      percentuale interesse          capitale residuo');
                         END
-      UNTIL conta=rate;
+      UNTIL conta=nro_rate;
       gotoxy(35,25);write('premi invio ');gotoxy(30,35);readln;
     END;
 
@@ -260,9 +260,7 @@ BEGIN
   (* imposto valore costanti *)
   MINIMO:=1000; MASSIMO:=1000000000000.0;
 
-  tipo_calcolo:='0';
-  prova1
-  prova2 per la peppa
+  tipo_calcolo:='0'; (* valore iniziale diverso da 'x' *)
   textbackground(blue);textcolor(yellow);
   Scelta_Tipo_Rate;
   REPEAT
