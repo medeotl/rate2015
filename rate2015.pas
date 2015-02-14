@@ -108,9 +108,11 @@ uses crt,printer;
       gotoxy(39,10);readln(percentuale);
       gotoxy(39,15);readln(nro_rate);
       gotoxy(54,22);readln(tipo_stampa);
-      IF (nro_rate>=2) AND (nro_rate<=32000) THEN
+
+      IF (prestito>=MINIMO) AND (prestito<=MASSIMO) THEN
         IF percentuale*nro_rate<k  THEN
-          IF (prestito>=MINIMO) AND (prestito<=MASSIMO) THEN BEGIN
+          IF (nro_rate>=2) AND (nro_rate<=32000) THEN BEGIN
+            (* tutte le condizioni soddisfate *)
             e:=prestito/nro_rate;conta3:=0;m:=10000000000.0;
             REPEAT
               operazioni:=operazioni+1;x:=prestito;
@@ -138,17 +140,18 @@ uses crt,printer;
             e:=e+0.001;x:=prestito;
             IF tipo_stampa='c' THEN Stampa_Loop1(1)
                                ELSE Do_Loop1(1);
-          END
-          ELSE BEGIN (* valore del prestito errato *)
-            gotoxy(10,24);write('A PRESTITO METTERE UN NUMERO DA  4  A  12  CIFRE:  PREMI INVIO ');
+          END (* end main loop *)
+          (* valori inseriti errati! *)
+          ELSE BEGIN (* numero rate errato *)
+            gotoxy(13,24);write('IMMETTERE ALMENO 2 RATE O MENO DI 32000:  PREMI INVIO ');
             readln;
           END
         ELSE BEGIN (* percentuale*nro_rate>=k *)
           gotoxy(16,24);write('PERCENTUALE O RATE TROPPO GRANDI:  PREMI INVIO ');
           readln;
         END
-      ELSE BEGIN (* numero rate errato *)
-        gotoxy(13,24);write('IMMETTERE ALMENO 2 RATE O MENO DI 32000:  PREMI INVIO ');
+      ELSE BEGIN (* valore del prestito errato *)
+        gotoxy(10,24);write('A PRESTITO METTERE UN NUMERO DA  4  A  12  CIFRE:  PREMI INVIO ');
         readln;
       END
     END;
