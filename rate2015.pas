@@ -76,7 +76,6 @@ uses crt,printer;
 
   PROCEDURE Main_Menu;
     BEGIN
-      operazioni:=0; 
       clrscr;
       gotoxy(29,4);write('R    PER CALCOLO RATE');
       gotoxy(29,8);write('I    PER CALCOLO INTERESSI');
@@ -100,6 +99,7 @@ uses crt,printer;
 
   PROCEDURE Calcolo_Rate;
     BEGIN
+      operazioni:=0; 
       clrscr;gotoxy(26,5);write('PRESTITO LIRE: ');
       gotoxy(26,10);write('PERCENTUALE: ');
       gotoxy(26,15);write('NUMERO RATE: ');
@@ -160,6 +160,7 @@ uses crt,printer;
 
   PROCEDURE Calcolo_Interessi;
     BEGIN
+      operazioni:=0; 
       clrscr;gotoxy(26,5);writeln('PRESTITO LIRE: ');
       gotoxy(26,10);IF tipo_rata='m' THEN writeln('RATA MENSILE:')
                                    ELSE writeln('RATA SEMESTRALE:');
