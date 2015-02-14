@@ -262,6 +262,7 @@ BEGIN
 
   tipo_calcolo:='0';
   prova1
+  prova2 per la peppa
   textbackground(blue);textcolor(yellow);
   Scelta_Tipo_Rate;
   REPEAT
