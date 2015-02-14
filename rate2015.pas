@@ -74,7 +74,7 @@ uses crt,printer;
       UNTIL (tipo_rata='m') or (tipo_rata='s') or (tipo_rata='x');
     END;
 
-  PROCEDURE Menu1;
+  PROCEDURE Main_Menu;
     BEGIN
       operazioni:=0; 
       clrscr;
@@ -141,7 +141,7 @@ uses crt,printer;
             IF tipo_stampa='c' THEN Stampa_Loop1(1)
                                ELSE Do_Loop1(1);
           END (* end main loop *)
-          (* valori inseriti errati! *)
+          (* gestione valori inseriti errati! *)
           ELSE BEGIN (* numero rate errato *)
             gotoxy(13,24);write('IMMETTERE ALMENO 2 RATE O MENO DI 32000:  PREMI INVIO ');
             readln;
@@ -269,7 +269,7 @@ BEGIN
   REPEAT
     IF tipo_calcolo<>'x' THEN
                      BEGIN
-                       Menu1;
+                       Main_Menu;
                        IF tipo_rata<>'x' THEN Principale;
                      END;
   UNTIL (tipo_calcolo='x') or (tipo_rata='x');
