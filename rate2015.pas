@@ -69,7 +69,7 @@ uses crt,printer;
         gotoxy(45,22);readln(tipo_rata);
         CASE tipo_rata OF
                     'm': BEGIN v:=1200; k:=9000; j:=8; END;
-                    's': BEGIN v:=200; k:=1500; j:=8; END;
+                    's': BEGIN v:=200;  k:=1500; j:=8; END;
                     END;
       UNTIL (tipo_rata='m') or (tipo_rata='s') or (tipo_rata='x');
     END;
@@ -80,7 +80,7 @@ uses crt,printer;
       clrscr;
       gotoxy(29,4);write('R    PER CALCOLO RATE');
       gotoxy(29,8);write('I    PER CALCOLO INTERESSI');
-      gotoxy(29,12);write('S    PER SCELTA RATE');
+      gotoxy(29,12);write('S    PER SCELTA TIPO RATE');
       gotoxy(29,16);write('X    PER FINE LAVORO');
       gotoxy(27,22);write('PREMERE      R   I   S   X ');
     END;
@@ -93,8 +93,6 @@ uses crt,printer;
                     'i': Calcolo_Interessi;
                     's': Scelta_Tipo_Rate;
                     'x': BEGIN END
-                  ELSE
-                    Menu1;
       END; (* fine CASE OF *)
     END;
 
@@ -263,6 +261,7 @@ BEGIN
   MINIMO:=1000; MASSIMO:=1000000000000.0;
 
   tipo_calcolo:='0';
+  prova1
   textbackground(blue);textcolor(yellow);
   Scelta_Tipo_Rate;
   REPEAT
