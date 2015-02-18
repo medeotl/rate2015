@@ -61,8 +61,8 @@ uses crt,printer;
     BEGIN
       REPEAT
         clrscr;
-        gotoxy(25,4);writeln('SCELTA RATE MENSILI O SEMESTRALI');
-        gotoxy(30,9);writeln('M    PER RATA MENSILE');
+        gotoxy(25,04);writeln('SCELTA RATE MENSILI O SEMESTRALI');
+        gotoxy(30,09);writeln('M    PER RATA MENSILE');
         gotoxy(30,13);writeln('S    PER RATA SEMESTRALE');
         gotoxy(30,17);writeln('X    PER FINE LAVORO');
         gotoxy(36,22);writeln('SCELTA:');
@@ -77,8 +77,8 @@ uses crt,printer;
   PROCEDURE Main_Menu;
     BEGIN
       clrscr;
-      gotoxy(29,4);write('R    PER CALCOLO RATE');
-      gotoxy(29,8);write('I    PER CALCOLO INTERESSI');
+      gotoxy(29,04);write('R    PER CALCOLO RATE');
+      gotoxy(29,08);write('I    PER CALCOLO INTERESSI');
       gotoxy(29,12);write('S    PER SCELTA TIPO RATE');
       gotoxy(29,16);write('X    PER FINE LAVORO');
       gotoxy(27,22);write('PREMERE      R   I   S   X ');
@@ -100,11 +100,12 @@ uses crt,printer;
   PROCEDURE Calcolo_Rate;
     BEGIN
       operazioni:=0; 
-      clrscr;gotoxy(26,5);write('PRESTITO LIRE: ');
+      clrscr;
+      gotoxy(26,05);write('PRESTITO LIRE: ');
       gotoxy(26,10);write('PERCENTUALE: ');
       gotoxy(26,15);write('NUMERO RATE: ');
       gotoxy(21,22);write('STAMPA A VIDEO O SU CARTA (v/c): ');
-      gotoxy(41,5);readln(prestito);
+      gotoxy(41,05);readln(prestito);
       gotoxy(39,10);readln(percentuale);
       gotoxy(39,15);readln(nro_rate);
       gotoxy(54,22);readln(tipo_stampa);
@@ -161,12 +162,12 @@ uses crt,printer;
   PROCEDURE Calcolo_Interessi;
     BEGIN
       operazioni:=0; 
-      clrscr;gotoxy(26,5);writeln('PRESTITO LIRE: ');
+      clrscr;gotoxy(26,05);writeln('PRESTITO LIRE: ');
       gotoxy(26,10);IF tipo_rata='m' THEN writeln('RATA MENSILE:')
                                    ELSE writeln('RATA SEMESTRALE:');
       gotoxy(26,15);writeln('NUMERO RATE:');
       gotoxy(21,22);writeln('STAMPA A VIDEO O SU CARTA (v/c): ');
-      gotoxy(41,5);readln(prestito);
+      gotoxy(41,05);readln(prestito);
       IF tipo_rata='m' THEN gotoxy(40,10)
                        ELSE gotoxy(43,10);
       readln(rata_semestrale);
