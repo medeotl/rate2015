@@ -266,12 +266,12 @@ BEGIN
 
   tipo_calcolo:='0'; (* valore iniziale diverso da 'x' *)
   textbackground(blue);textcolor(yellow);
+  (* imposto il tipo di rata (mensile o semestrale) *)
   Scelta_Tipo_Rate;
-  REPEAT
-    IF tipo_calcolo<>'x' THEN
-                     BEGIN
-                       Main_Menu;
-                       IF tipo_rata<>'x' THEN Principale;
-                     END;
-  UNTIL (tipo_calcolo='x') or (tipo_rata='x');
+  (* inizio il ciclo principale *)
+  WHILE (tipo_rata <> 'x') AND (tipo_calcolo <> 'x') DO
+    BEGIN
+      Main_Menu;
+      Principale;
+    END;
 END.
