@@ -20,8 +20,9 @@ uses crt,printer;
                END;
              IF conta=nro_rate THEN BEGIN
                   writeln;
-                  IF tipo_rata='m' THEN writeln('   numero rate    rata mensile       capitale residuo          interesse')
-                                 ELSE writeln('   numero rate   rata semestrale     capitale residuo          interesse');
+                  IF tipo_rata='m'
+                    THEN writeln('   numero rate    rata mensile       capitale residuo          interesse')
+                    ELSE writeln('   numero rate   rata semestrale     capitale residuo          interesse');
                 END
            END
       UNTIL conta=nro_rate;
@@ -116,7 +117,8 @@ uses crt,printer;
             (* tutte le condizioni soddisfate *)
             e:=prestito/nro_rate;conta3:=0;m:=10000000000.0;
             REPEAT
-              operazioni:=operazioni+1;x:=prestito;
+              operazioni:=operazioni+1;
+              x:=prestito;
               Do_Loop1(0);
               IF x>0 THEN e:=e+m;
                 IF x<0 THEN BEGIN
@@ -162,9 +164,10 @@ uses crt,printer;
   PROCEDURE Calcolo_Interessi;
     BEGIN
       operazioni:=0; 
-      clrscr;gotoxy(26,05);writeln('PRESTITO LIRE: ');
+      clrscr;
+      gotoxy(26,05);writeln('PRESTITO LIRE: ');
       gotoxy(26,10);IF tipo_rata='m' THEN writeln('RATA MENSILE:')
-                                   ELSE writeln('RATA SEMESTRALE:');
+                                     ELSE writeln('RATA SEMESTRALE:');
       gotoxy(26,15);writeln('NUMERO RATE:');
       gotoxy(21,22);writeln('STAMPA A VIDEO O SU CARTA (v/c): ');
       gotoxy(41,05);readln(prestito);
@@ -196,7 +199,8 @@ uses crt,printer;
                                        10: l:=0.000000001;
                                      END;
                          END;
-              UNTIL (conta2=11) OR (operazioni=470);e:=e+0.0000000001;
+              UNTIL (conta2=11) OR (operazioni=470);
+              e:=e+0.0000000001;
               IF tipo_stampa='v' THEN Do_Loop2(1)
                                  ELSE Stampa_Loop2;
           END
