@@ -2,7 +2,7 @@ PROGRAM CALCOLO_INTERESSI_E_RATE_(input,output);
 uses crt,printer;
   VAR  tipo_calcolo,tipo_rata,tipo_stampa:CHAR;
        v,k,j,h,conta,conta2,conta3,operazioni,nro_rate:INTEGER;
-       m,l,MINIMO,MASSIMO,rata_semestrale,percentuale,e,x,prestito,inter:REAL;
+       m,l,MINIMO,MASSIMO,valore_rata,percentuale,e,x,prestito,inter:REAL;
 
   PROCEDURE Do_Loop1(zz:integer);
     BEGIN
@@ -35,10 +35,10 @@ uses crt,printer;
     BEGIN
       clrscr;
       x:=prestito;conta:=1;
-      x:=x+(x*e/v)-rata_semestrale;clrscr;
+      x:=x+(x*e/v)-valore_rata;clrscr;
       writeln('  ',conta:10,'  ',e:28:9,'  ',x:26:2);
       REPEAT
-        conta:=conta+1;x:=x+(x*e/v)-rata_semestrale;
+        conta:=conta+1;x:=x+(x*e/v)-valore_rata;
         IF zz=1 THEN BEGIN
              writeln('  ',conta:10,'  ',e:28:9,'  ',x:26:2);
              IF (conta=24) or (conta=48) or (conta=72) THEN BEGIN
@@ -173,11 +173,11 @@ uses crt,printer;
       gotoxy(41,05);readln(prestito);
       IF tipo_rata='m' THEN gotoxy(40,10)
                        ELSE gotoxy(43,10);
-      readln(rata_semestrale);
+      readln(valore_rata);
       gotoxy(39,15);readln(nro_rate);
       gotoxy(54,22);readln(tipo_stampa);
-      IF rata_semestrale*nro_rate<prestito*j THEN
-        IF nro_rate*rata_semestrale>=prestito THEN
+      IF valore_rata*nro_rate<prestito*j THEN
+        IF nro_rate*valore_rata>=prestito THEN
           IF (prestito>=MINIMO) AND (prestito<=MASSIMO) THEN BEGIN
             conta2:=0;e:=1;l:=10;
               REPEAT
@@ -247,15 +247,15 @@ uses crt,printer;
       writeln(lst); writeln(lst);
       writeln(lst,'        PRESTITO LIRE: ',prestito:18:0);
       IF tipo_rata='m'
-             THEN writeln(lst,'        RATA MENSILE: ',rata_semestrale:19:0)
-             ELSE writeln(lst,'        RATA SEMESTRALE: ',rata_semestrale:16:0);
+             THEN writeln(lst,'        RATA MENSILE: ',valore_rata:19:0)
+             ELSE writeln(lst,'        RATA SEMESTRALE: ',valore_rata:16:0);
       writeln(lst,'        NUMERO RATE: ',nro_rate:20);
       writeln(lst); writeln(lst);
       x:=prestito; conta:=1;
-      x:=x+(x*e/v)-rata_semestrale;
+      x:=x+(x*e/v)-valore_rata;
       writeln(lst,'  ',conta:7,'  ',e:26:9,'  ',x:26:2);
       REPEAT
-        conta:=conta+1; x:=x+(x*e/v)-rata_semestrale; 
+        conta:=conta+1; x:=x+(x*e/v)-valore_rata; 
         writeln(lst,'  ',conta:7,'  ',e:26:9,'  ',x:26:2);
         IF conta=nro_rate THEN BEGIN
                           writeln(lst);
