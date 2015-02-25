@@ -157,6 +157,7 @@
                 <property name="halign">center</property>
                 <property name="valign">end</property>
                 <property name="xalign">0.56999999284744263</property>
+                <signal name="clicked" handler="calcolaRate" swapped="no"/>
               </object>
               <packing>
                 <property name="left_attach">0</property>
@@ -180,7 +181,7 @@
         </child>
         <child>
           <object class="GtkButton" id="button2">
-            <property name="label" translatable="yes">button</property>
+            <property name="label" translatable="yes">WORK IN PROGRESS</property>
             <property name="visible">True</property>
             <property name="can_focus">True</property>
             <property name="receives_default">True</property>
