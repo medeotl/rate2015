@@ -2,25 +2,54 @@
 <!-- Generated with glade 3.18.3 -->
 <interface>
   <requires lib="gtk+" version="3.6"/>
+  <object class="GtkAdjustment" id="percentuale_adjustment">
+    <property name="upper">100</property>
+    <property name="step_increment">1</property>
+    <property name="page_increment">10</property>
+  </object>
+  <object class="GtkAdjustment" id="prestito_adjustment">
+    <property name="lower">1000</property>
+    <property name="upper">100000000000</property>
+    <property name="value">1000</property>
+    <property name="step_increment">500</property>
+    <property name="page_increment">500</property>
+  </object>
+  <object class="GtkAdjustment" id="rate_adjustment">
+    <property name="lower">2</property>
+    <property name="upper">32000</property>
+    <property name="value">2</property>
+    <property name="step_increment">1</property>
+    <property name="page_increment">10</property>
+  </object>
   <object class="GtkWindow" id="window1">
     <property name="width_request">340</property>
     <property name="height_request">480</property>
     <property name="can_focus">False</property>
+    <signal name="delete-event" handler="onDeleteWindow" swapped="no"/>
     <child>
       <object class="GtkNotebook" id="notebook1">
         <property name="visible">True</property>
         <property name="can_focus">True</property>
+        <property name="margin_left">6</property>
+        <property name="margin_right">6</property>
+        <property name="margin_top">13</property>
+        <property name="margin_bottom">6</property>
         <property name="vexpand">True</property>
+        <property name="border_width">0</property>
         <property name="show_border">False</property>
         <property name="scrollable">True</property>
         <child>
           <object class="GtkGrid" id="grid1">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
+            <property name="row_spacing">6</property>
+            <property name="column_homogeneous">True</property>
             <child>
-              <object class="GtkSpinButton" id="spinbutton1">
+              <object class="GtkSpinButton" id="prestito">
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
+                <property name="adjustment">prestito_adjustment</property>
+                <property name="numeric">True</property>
               </object>
               <packing>
                 <property name="left_attach">1</property>
@@ -28,9 +57,11 @@
               </packing>
             </child>
             <child>
-              <object class="GtkSpinButton" id="spinbutton2">
+              <object class="GtkSpinButton" id="percentuale">
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
+                <property name="adjustment">percentuale_adjustment</property>
+                <property name="numeric">True</property>
               </object>
               <packing>
                 <property name="left_attach">1</property>
@@ -41,6 +72,7 @@
               <object class="GtkLabel" id="label3">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
+                <property name="halign">start</property>
                 <property name="label" translatable="yes">Prestito: </property>
               </object>
               <packing>
@@ -52,6 +84,7 @@
               <object class="GtkLabel" id="label4">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
+                <property name="halign">start</property>
                 <property name="label" translatable="yes">Percentuale: </property>
               </object>
               <packing>
@@ -63,6 +96,7 @@
               <object class="GtkLabel" id="label5">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
+                <property name="halign">start</property>
                 <property name="label" translatable="yes">Numero rate: </property>
               </object>
               <packing>
@@ -71,10 +105,12 @@
               </packing>
             </child>
             <child>
-              <object class="GtkSpinButton" id="spinbutton3">
+              <object class="GtkSpinButton" id="rate">
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="max_length">8</property>
+                <property name="adjustment">rate_adjustment</property>
+                <property name="numeric">True</property>
               </object>
               <packing>
                 <property name="left_attach">1</property>
@@ -105,10 +141,27 @@
                 <property name="xalign">0</property>
                 <property name="active">True</property>
                 <property name="draw_indicator">True</property>
+                <property name="group">radiobutton1</property>
               </object>
               <packing>
                 <property name="left_attach">1</property>
                 <property name="top_attach">3</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkButton" id="button1">
+                <property name="label" translatable="yes">Calcola</property>
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="receives_default">True</property>
+                <property name="halign">center</property>
+                <property name="valign">end</property>
+                <property name="xalign">0.56999999284744263</property>
+              </object>
+              <packing>
+                <property name="left_attach">0</property>
+                <property name="top_attach">4</property>
+                <property name="width">2</property>
               </packing>
             </child>
           </object>
@@ -122,6 +175,7 @@
           </object>
           <packing>
             <property name="tab_expand">True</property>
+            <property name="tab_fill">False</property>
           </packing>
         </child>
         <child>
@@ -145,6 +199,7 @@
           <packing>
             <property name="position">1</property>
             <property name="tab_expand">True</property>
+            <property name="tab_fill">False</property>
           </packing>
         </child>
         <child>
