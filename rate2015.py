@@ -8,6 +8,14 @@ class Handler:
     def onDeleteWindow(self, *args):
         Gtk.main_quit(*args)
 
+    def rataMensile(self, radiobutton):
+        if radiobutton.get_active():
+            print("rataMensile")
+
+    def rataSemestrale(self, radiobutton):
+        if radiobutton.get_active():
+            print("rataSemestrale")
+
     def calcolaRate(self, button):
         print ("a Morris piace il pinnacchio")
 
