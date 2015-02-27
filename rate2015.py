@@ -4,21 +4,27 @@
 from gi.repository import Gtk
 
 class Handler:
+    k = 9000 ; v = 1200 # valori iniziali per rata mensile
+    J = 8 # valore costante per calcolo interessi
+
     def onDeleteWindow(self, *args):
         Gtk.main_quit(*args)
 
     def rataMensile(self, radiobutton):
         if radiobutton.get_active():
-            print("rataMensile")
+            self.k = 9000
+            self.v = 1200
 
     def rataSemestrale(self, radiobutton):
         if radiobutton.get_active():
-            print("rataSemestrale")
+            self.k = 1500
+            self.v = 200
 
     def calcolaRate(self, button):
-        print ("a Morris piace il pinnacchio")
+        print (self.k, self.v, self.J)
 
 GUI = '/home/medeo/coding/abandoned/rate/rate2015/guimockup.ui'
+
 builder = Gtk.Builder()
 builder.add_from_file(GUI)
 builder.connect_signals(Handler())
