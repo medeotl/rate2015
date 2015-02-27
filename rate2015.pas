@@ -1,7 +1,7 @@
 PROGRAM CALCOLO_INTERESSI_E_RATE_(input,output);
 uses crt,printer;
   VAR  tipo_calcolo,tipo_rata,tipo_stampa:CHAR;
-       v,k,j,h,conta,conta2,conta3,operazioni,nro_rate:INTEGER;
+       v,k,J,h,conta,conta2,conta3,operazioni,nro_rate:INTEGER;
        m,l,MINIMO,MASSIMO,valore_rata,percentuale,e,x,prestito,inter:REAL;
 
   PROCEDURE Do_Loop1(zz:integer);
@@ -69,8 +69,8 @@ uses crt,printer;
         gotoxy(36,22);writeln('SCELTA:');
         gotoxy(45,22);readln(tipo_rata);
         CASE tipo_rata OF
-                    'm': BEGIN v:=1200; k:=9000; j:=8; END;
-                    's': BEGIN v:=200;  k:=1500; j:=8; END;
+                    'm': BEGIN v:=1200; k:=9000; END;
+                    's': BEGIN v:=200;  k:=1500; END;
                     END;
       UNTIL (tipo_rata='m') or (tipo_rata='s') or (tipo_rata='x');
     END;
@@ -163,7 +163,7 @@ uses crt,printer;
 
   PROCEDURE Calcolo_Interessi;
     BEGIN
-      operazioni:=0; 
+      operazioni:=0; J:=8;
       clrscr;
       gotoxy(26,05);writeln('PRESTITO LIRE: ');
       gotoxy(26,10);IF tipo_rata='m' THEN writeln('RATA MENSILE:')
@@ -176,7 +176,7 @@ uses crt,printer;
       readln(valore_rata);
       gotoxy(39,15);readln(nro_rate);
       gotoxy(54,22);readln(tipo_stampa);
-      IF valore_rata*nro_rate<prestito*j THEN
+      IF valore_rata*nro_rate<prestito*J THEN
         IF nro_rate*valore_rata>=prestito THEN
           IF (prestito>=MINIMO) AND (prestito<=MASSIMO) THEN BEGIN
             conta2:=0;e:=1;l:=10;
