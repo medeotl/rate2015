@@ -21,15 +21,24 @@ class Handler:
             self.v = 200
 
     def calcolaRate(self, button):
-        print (self.k, self.v, self.J)
+        percentuale = builder.get_object( "percentuale" ).get_value_as_int()
+        nro_rate = builder.get_object( "nro_rate" ).get_value_as_int()
+        if percentuale * nro_rate < self.k :
+            # errore!
+            dialog = builder.get_object( "error_percentuale_dialog" )
+            dialog.run()
+            print("ERROR dialog closed")
+
+            dialog.hide()
+        print (percentuale, nro_rate)
 
 GUI = '/home/medeo/coding/abandoned/rate/rate2015/guimockup.ui'
 
 builder = Gtk.Builder()
-builder.add_from_file(GUI)
-builder.connect_signals(Handler())
+builder.add_from_file( GUI )
+builder.connect_signals( Handler() )
 
-window = builder.get_object("window1")
+window = builder.get_object( "window1" )
 window.show_all()
 
 Gtk.main()
