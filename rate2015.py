@@ -23,7 +23,7 @@ class Handler:
     def calcolaRate(self, button):
         percentuale = builder.get_object( "percentuale" ).get_value_as_int()
         nro_rate = builder.get_object( "nro_rate" ).get_value_as_int()
-        if percentuale * nro_rate < self.k :
+        if percentuale * nro_rate > self.k :
             # errore!
             dialog = builder.get_object( "error_percentuale_dialog" )
             dialog.run()
@@ -37,7 +37,7 @@ class Handler:
         operazioni = 0
         conta3 = 0
         m = 10000000000.0
-        lista_m = (None,                # 0  non verrà mai usato
+        lista_m = (None,                # 0   non verrà mai usato
                    10000000000.0,       # 1
                       1000000000,       # 2
                        100000000,       # 3
@@ -50,7 +50,8 @@ class Handler:
                               10,       # 10
                                1,       # 11
                                0.1,     # 12
-                               0.01)    # 13
+                               0.01,    # 13
+                               0.01)    # 14  mantengo valore del 13
         while True:
             operazioni += 1
             x = prestito
@@ -60,12 +61,14 @@ class Handler:
             elif x < 0 :
                 e = e - m
                 conta3 += 1
-                m = lista_m(conta3)
-                
-            
-
-
-
+                m = lista_m[conta3]
+                #~ print m
+            if (conta3 == 14) or (operazioni == 250) :
+                break
+        e += 0.001
+        x = prestito
+        pass # Stampa_Loop(1)
+        print ("finito!")
         
 
 GUI = '/home/medeo/coding/abandoned/rate/rate2015/guimockup.ui'
