@@ -102,7 +102,6 @@ uses crt,printer;
 
   PROCEDURE Calcolo_Rate;
     BEGIN
-      operazioni:=0; 
       clrscr;
       gotoxy(26,05);write('PRESTITO LIRE: ');
       gotoxy(26,10);write('PERCENTUALE: ');
@@ -118,6 +117,7 @@ uses crt,printer;
           IF (nro_rate>=2) AND (nro_rate<=32000) THEN BEGIN
             (* tutte le condizioni soddisfate *)
             e:=prestito/nro_rate;
+            operazioni:=0;
             conta3:=0;
             m:=10000000000.0;
             REPEAT
