@@ -23,7 +23,7 @@ class Handler:
     def calcolaRate(self, button):
         percentuale = builder.get_object( "percentuale" ).get_value_as_int()
         nro_rate = builder.get_object( "nro_rate" ).get_value_as_int()
-        if percentuale * nro_rate < self.k :
+        if percentuale * nro_rate > self.k :
             # errore!
             dialog = builder.get_object( "error_percentuale_dialog" )
             dialog.run()

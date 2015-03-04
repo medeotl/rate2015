@@ -12,7 +12,9 @@ uses crt,printer;
       x:=(x+inter-e);
       writeln('  ',conta:7,'  ',e:19:2,'  ',x:20:2,'  ',inter:19:2);
       REPEAT
-        conta:=conta+1;inter:=x*percentuale/v;x:=(x+inter-e);
+        conta:=conta+1;
+        inter:=x*percentuale/v;
+        x:=(x+inter-e);
         IF zz=1 THEN BEGIN
              writeln('  ',conta:7,'  ',e:19:2,'  ',x:20:2,'  ',inter:19:2);
              IF (conta=24) or (conta=48) or (conta=72) THEN BEGIN
@@ -115,34 +117,37 @@ uses crt,printer;
         IF percentuale*nro_rate<k  THEN
           IF (nro_rate>=2) AND (nro_rate<=32000) THEN BEGIN
             (* tutte le condizioni soddisfate *)
-            e:=prestito/nro_rate;conta3:=0;m:=10000000000.0;
+            e:=prestito/nro_rate;
+            conta3:=0;
+            m:=10000000000.0;
             REPEAT
               operazioni:=operazioni+1;
               x:=prestito;
               Do_Loop1(0);
               IF x>0 THEN e:=e+m;
-                IF x<0 THEN BEGIN
-                           e:=e-m;conta3:=conta3+1;
-                                     CASE conta3 OF
-                                       1: m:=10000000000.0;
-                                       2: m:=1000000000;
-                                       3: m:=100000000;
-                                       4: m:=10000000;
-                                       5: m:=1000000;
-                                       6: m:=100000;
-                                       7: m:=10000;
-                                       8: m:=1000;
-                                       9: m:=100;
-                                      10: m:=10;
-                                      11: m:=1;
-                                      12: m:=0.1;
-                                      13: m:=0.01;
-                                     END;
-                         END;
+              IF x<0 THEN BEGIN
+                            e:=e-m;
+                            conta3:=conta3+1;
+                            CASE conta3 OF
+                              1: m:=10000000000.0;
+                              2: m:=1000000000;
+                              3: m:=100000000;
+                              4: m:=10000000;
+                              5: m:=1000000;
+                              6: m:=100000;
+                              7: m:=10000;
+                              8: m:=1000;
+                              9: m:=100;
+                              10: m:=10;
+                              11: m:=1;
+                              12: m:=0.1;
+                              13: m:=0.01;
+                            END;
+                          END;
             UNTIL (conta3=14) OR (operazioni=250);
             e:=e+0.001;x:=prestito;
-            IF tipo_stampa='c' THEN Stampa_Loop1(1)
-                               ELSE Do_Loop1(1);
+            IF tipo_stampa='c' THEN Stampa_Loop1(1) (* stampa su carta *)
+                               ELSE Do_Loop1(1); (* stampa a video *)
           END (* end main loop *)
           (* gestione valori inseriti errati! *)
           ELSE BEGIN (* numero rate errato *)
