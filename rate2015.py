@@ -21,6 +21,29 @@ class Handler:
             self.v = 200
 
     def calcolaRate(self, button):
+        
+        def Do_Loop1(zz):
+            x = prestito
+            conta = 1
+            inter = x * percentuale / self.v
+            x = x + inter - e
+            print(conta, e, x, inter)
+            while True:
+                conta += 1
+                inter = x * percentuale / self.v
+                x = x + inter - e
+                if zz == 1: # stampa i risultati
+                    print("%d %0.2f %0.2f %0.2f " % (conta, e, x, inter) )
+                if conta == nro_rate :
+                    break
+            if zz == 1:
+                print()
+                if builder.get_object( "rata mensile" ).get_active():
+                    print("   numero rate    rata mensile       capitale residuo          interesse")
+                else:
+                    print("   numero rate   rata semestrale     capitale residuo          interesse")
+            return x
+
         percentuale = builder.get_object( "percentuale" ).get_value_as_int()
         nro_rate = builder.get_object( "nro_rate" ).get_value_as_int()
         if percentuale * nro_rate > self.k :
@@ -37,7 +60,7 @@ class Handler:
         operazioni = 0
         conta3 = 0
         m = 10000000000.0
-        lista_m = (None,                # 0   non verrà mai usato
+        lista_m = (         None,       # 0   non verrà mai usato
                    10000000000.0,       # 1
                       1000000000,       # 2
                        100000000,       # 3
@@ -52,10 +75,12 @@ class Handler:
                                0.1,     # 12
                                0.01,    # 13
                                0.01)    # 14  mantengo valore del 13
+        percentuale = builder.get_object( "percentuale" ).get_value_as_int()
         while True:
+            # ricerchiamo il corretto valore di "e"
             operazioni += 1
-            x = prestito
-            pass # DoLoop1()
+            x = Do_Loop1(0)
+            print(x)
             if x > 0 :
                 e = e + m
             elif x < 0 :
@@ -67,7 +92,9 @@ class Handler:
                 break
         e += 0.001
         x = prestito
-        pass # Stampa_Loop(1)
+        # ora che conosciamo il valore di "e" rifacciamo il calcolo
+        # e stampiamolo
+        Do_Loop1(1)
         print ("finito!")
         
 
