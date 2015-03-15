@@ -27,7 +27,7 @@ class Handler:
             conta = 1
             inter = x * percentuale / self.v
             x = x + inter - e
-            print("%d\t %0.2f\t %0.2f\t %0.2f " % (conta, e, x, inter) )
+            print("\t%d\t \t%0.2f\t \t\t%0.2f\t \t\t%0.2f " % (conta, e, x, inter) )
             while True:
                 conta += 1
                 inter = x * percentuale / self.v
