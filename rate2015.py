@@ -27,21 +27,21 @@ class Handler:
             conta = 1
             inter = x * percentuale / self.v
             x = x + inter - e
-            print(conta, e, x, inter)
+            print("%d\t %0.2f\t %0.2f\t %0.2f " % (conta, e, x, inter) )
             while True:
                 conta += 1
                 inter = x * percentuale / self.v
                 x = x + inter - e
                 if zz == 1: # stampa i risultati
-                    print("%d %0.2f %0.2f %0.2f " % (conta, e, x, inter) )
+                    print("\t%d\t \t%0.2f\t \t\t%0.2f\t \t\t%0.2f " % (conta, e, x, inter) )
                 if conta == nro_rate :
                     break
             if zz == 1:
-                print()
+                print("\n")
                 if builder.get_object( "rata mensile" ).get_active():
-                    print("   numero rate    rata mensile       capitale residuo          interesse")
+                    print("   numero rate        rata mensile         capitale residuo          interesse")
                 else:
-                    print("   numero rate   rata semestrale     capitale residuo          interesse")
+                    print("   numero rate       rata semestrale       capitale residuo          interesse")
             return x
 
         percentuale = builder.get_object( "percentuale" ).get_value_as_int()
