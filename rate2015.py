@@ -1,11 +1,13 @@
-#!/usr/bin/python3
+#!/usr/bin/python
 # -*- coding: utf-8 -*-
 
 from gi.repository import Gtk
+import sys
+print(sys.version)
 
 class Handler:
     k = 9000 ; v = 1200 # valori iniziali per rata mensile
-    J = 8 # valore costante per calcolo interessi
+    J = 8 # valore COSTANTE per calcolo interessi
 
     def onDeleteWindow(self, *args):
         Gtk.main_quit(*args)
@@ -27,7 +29,7 @@ class Handler:
             conta = 1
             inter = x * percentuale / self.v
             x = x + inter - e
-            print("\t%d\t \t%0.2f\t \t\t%0.2f\t \t\t%0.2f " % (conta, e, x, inter) )
+            print("\t%d\t \t%f\t \t\t%0.2f\t \t\t%0.2f " % (conta, e, x, inter) )
             while True:
                 conta += 1
                 inter = x * percentuale / self.v
@@ -44,7 +46,7 @@ class Handler:
                     print("   numero rate       rata semestrale       capitale residuo          interesse")
             return x
 
-        percentuale = builder.get_object( "percentuale" ).get_value_as_int()
+        percentuale = builder.get_object( "percentuale" ).get_value()
         nro_rate = builder.get_object( "nro_rate" ).get_value_as_int()
         if percentuale * nro_rate > self.k :
             # errore!
@@ -80,7 +82,6 @@ class Handler:
             # ricerchiamo il corretto valore di "e"
             operazioni += 1
             x = Do_Loop1(0)
-            print(x)
             if x > 0 :
                 e = e + m
             elif x < 0 :
@@ -89,16 +90,19 @@ class Handler:
                 m = lista_m[conta3]
                 #~ print m
             if (conta3 == 14) or (operazioni == 250) :
+                print(conta3, operazioni)
                 break
         e += 0.001
         x = prestito
         # ora che conosciamo il valore di "e" rifacciamo il calcolo
         # e stampiamolo
+        print("%0.2f" % e)
+        raise SystemExit
         Do_Loop1(1)
         print ("finito!")
         
 
-GUI = '/home/medeo/coding/abandoned/rate/rate2015/guimockup.ui'
+GUI = './guimockup.ui'
 
 builder = Gtk.Builder()
 builder.add_from_file( GUI )
