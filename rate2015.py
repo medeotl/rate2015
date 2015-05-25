@@ -2,9 +2,7 @@
 # -*- coding: utf-8 -*-
 
 from gi.repository import Gtk
-import sys
-
-print(sys.version) # indico versione interprete python, dev'essere 3.x
+import sys # per controllo versione python
 
 class Handler:
     k = 9000 ; v = 1200 # valori iniziali per rata mensile
@@ -100,11 +98,18 @@ class Handler:
         # ora che conosciamo il valore di "e" rifacciamo il calcolo
         # e stampiamolo
         print("%0.2f" % e)
-        raise SystemExit
         Do_Loop1(1)
         print ("finito!")
-        
 
+# controllo che versione python sia la 3.x
+if sys.version[0] == "2":
+    # errore! eseguito programma con python 2.x
+    print("\a") # ding!
+    print("ERRORE!")
+    print("Eseguire il programma con la versione 3.x di Python")
+    print("")
+    raise SystemExit
+    
 GUI = './guimockup.ui'
 
 builder = Gtk.Builder()
