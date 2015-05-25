@@ -3,7 +3,8 @@
 
 from gi.repository import Gtk
 import sys
-print(sys.version)
+
+print(sys.version) # indico versione interprete python, dev'essere 3.x
 
 class Handler:
     k = 9000 ; v = 1200 # valori iniziali per rata mensile
@@ -48,6 +49,8 @@ class Handler:
 
         percentuale = builder.get_object( "percentuale" ).get_value()
         nro_rate = builder.get_object( "nro_rate" ).get_value_as_int()
+
+        # controllo correttezza valori inseriti
         if percentuale * nro_rate > self.k :
             # errore!
             dialog = builder.get_object( "error_percentuale_dialog" )
@@ -56,7 +59,7 @@ class Handler:
             dialog.hide()
             return    
 
-        # tutte le condizioni verificate, posso effettuare il calcolo
+        # tutte le condizioni verificate, effettuo il calcolo
         prestito = builder.get_object( "prestito" ).get_value_as_int()
         e = prestito/nro_rate
         operazioni = 0

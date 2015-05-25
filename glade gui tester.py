@@ -8,7 +8,7 @@ class Handler:
     def onDeleteWindow(self, *args):
         Gtk.main_quit(*args)
 
-gui2betested = '/home/medeo/coding/abandoned/rate/rate2015/guimockup.ui'
+gui2betested = './guimockup.ui'
 builder = Gtk.Builder()
 builder.add_from_file(gui2betested)
 builder.connect_signals(Handler())
