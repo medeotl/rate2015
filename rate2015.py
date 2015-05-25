@@ -28,12 +28,13 @@ class Handler:
             conta = 1
             inter = x * percentuale / self.v
             x = x + inter - e
-            print("\t%d\t \t%0.2f\t \t\t%0.2f\t \t\t%0.2f " % (conta, e, x, inter) )
+            if zz == 1: # stampa calcoli relativi a rata 1
+                print("\t%d\t \t%0.2f\t \t\t%0.2f\t \t\t%0.2f " % (conta, e, x, inter) )
             while True:
                 conta += 1
                 inter = x * percentuale / self.v
                 x = x + inter - e
-                if zz == 1: # stampa i risultati
+                if zz == 1: # stampa calcoli relativi a rate 2..n
                     print("\t%d\t \t%0.2f\t \t\t%0.2f\t \t\t%0.2f " % (conta, e, x, inter) )
                 if conta == nro_rate :
                     break
@@ -89,17 +90,13 @@ class Handler:
                 e = e - m
                 conta3 += 1
                 m = lista_m[conta3]
-                #~ print m
             if (conta3 == 14) or (operazioni == 250) :
-                print(conta3, operazioni)
                 break
         e += 0.001
         x = prestito
         # ora che conosciamo il valore di "e" rifacciamo il calcolo
         # e stampiamolo
-        print("%0.2f" % e)
         Do_Loop1(1)
-        print ("finito!")
 
 # controllo che versione python sia la 3.x
 if sys.version[0] == "2":
