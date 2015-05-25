@@ -79,7 +79,6 @@ class Handler:
                                0.1,     # 12
                                0.01,    # 13
                                0.01)    # 14  mantengo valore del 13
-        percentuale = builder.get_object( "percentuale" ).get_value_as_int()
         while True:
             # ricerchiamo il corretto valore di "e"
             operazioni += 1
