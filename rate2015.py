@@ -28,7 +28,7 @@ class Handler:
             conta = 1
             inter = x * percentuale / self.v
             x = x + inter - e
-            print("\t%d\t \t%f\t \t\t%0.2f\t \t\t%0.2f " % (conta, e, x, inter) )
+            print("\t%d\t \t%0.2f\t \t\t%0.2f\t \t\t%0.2f " % (conta, e, x, inter) )
             while True:
                 conta += 1
                 inter = x * percentuale / self.v
@@ -37,7 +37,7 @@ class Handler:
                     print("\t%d\t \t%0.2f\t \t\t%0.2f\t \t\t%0.2f " % (conta, e, x, inter) )
                 if conta == nro_rate :
                     break
-            if zz == 1:
+            if zz == 1: # stampa piè di pagina
                 print("\n")
                 if builder.get_object( "rata mensile" ).get_active():
                     print("   numero rate        rata mensile         capitale residuo          interesse")
