@@ -7,7 +7,7 @@ import sys # per controllo versione python
 class Handler:
     k = 9000 ; v = 1200 # valori iniziali per rata mensile
     J = 8 # valore COSTANTE per calcolo interessi
-
+    
     def onDeleteWindow(self, *args):
         Gtk.main_quit(*args)
 
@@ -15,11 +15,13 @@ class Handler:
         if radiobutton.get_active():
             self.k = 9000
             self.v = 1200
+            builder.get_object( "lbl_valore_rata" ).set_text("Valore rata mensile")
 
     def rataSemestrale(self, radiobutton):
         if radiobutton.get_active():
             self.k = 1500
             self.v = 200
+            builder.get_object( "lbl_valore_rata" ).set_text("Valore rata semestrale")
 
     def calcolaRate(self, button):
         
