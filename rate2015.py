@@ -99,6 +99,9 @@ class Handler:
         # e stampiamolo
         Do_Loop1(1)
 
+    def calcolaInteressi(self, button):
+        pass
+
 # controllo che versione python sia la 3.x
 if sys.version[0] == "2":
     # errore! eseguito programma con python 2.x

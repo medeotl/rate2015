@@ -338,7 +338,7 @@
             <property name="valign">end</property>
             <property name="xalign">0.56999999284744263</property>
             <property name="yalign">0.52999997138977051</property>
-            <signal name="clicked" handler="calcolaRate" swapped="no"/>
+            <signal name="clicked" handler="calcolaInteressi" swapped="no"/>
           </object>
           <packing>
             <property name="expand">False</property>
