@@ -100,7 +100,67 @@ class Handler:
         Do_Loop1(1)
 
     def calcolaInteressi(self, button):
-        pass
+
+        def Do_Loop2(zz):
+            x = prestito
+            conta = 1
+            x = x + (x*e/v) - valore_rata
+            if zz == 1: # stampa calcoli relativi a rata 1
+                print( "\t%d\t \t%0.2f\t \t\t%0.2f" % (conta, e, x) )
+            while True:
+                conta += 1
+                x = x + (x*e/v) - valore_rata
+                if zz = 1 : # stampa calcoli relativi a rate 2..n
+                    print( "\t%d\t \t%0.2f\t \t\t%0.2f" % (conta, e, x) )
+                if conta == nro_rate :
+                    break
+            if zz == 1: # stampa piè di pagina
+                print("\n      numero rate         percentuale interesse       capitale residuo")
+
+        prestito = builder.get_object( "prestito" ).get_value()
+        valore_rata = builder.get_object( "valore_rata" ).get_value()
+        nro_rate = builder.get_object( "nro_rate" ).get_value()
+
+        # controllo correttezza valori inseriti:
+        if (valore_rata * nro_rate >= prestito * self.J) or (valore_rata * nro_rate <  prestito) :
+            # errore!
+            dialog = builder.get_object( "error_percentuale_dialog" )
+            dialog.run()
+    
+            dialog.hide()
+            return
+        # tutte le condizioni verificate, effettuo il calcolo
+        operazioni = 0
+        conta2 = 0
+        e = 1
+        l = 10
+        lista_l = (         None,   # 0   non verrà mai usato
+                               1,   # 1
+                             0.1,   # 2
+                            0.01,   # 3
+                           0.001,   # 4
+                          0.0001,   # 5
+                         0.00001,   # 6
+                        0.000001,   # 7
+                       0.0000001,   # 8
+                      0.00000001,   # 9
+                     0.000000001,   # 10
+                     0.000000001)   # 11  mantengo valore del 10
+        while True:
+            operazioni += 1
+            Do_Loop2(0)
+            if x < 0:
+                e = e+l
+            elif x >0:
+                e = e-l
+                conta2 += 1
+                l = lista_l[conta2]
+            if conta2 = 11 or operazioni = 470:
+                break
+        e = e + 0.0000000001
+        
+             
+        
 
 # controllo che versione python sia la 3.x
 if sys.version[0] == "2":

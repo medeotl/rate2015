@@ -198,7 +198,7 @@
                   </packing>
                 </child>
                 <child>
-                  <object class="GtkSpinButton" id="valore_rata_int">
+                  <object class="GtkSpinButton" id="valore_rata">
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <property name="adjustment">valore_rata_adjustment</property>
