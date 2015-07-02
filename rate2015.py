@@ -170,7 +170,7 @@ class Handler:
         # e stampiamolo
         Do_Loop2(1)
         
-    def prova (self, notebook, page, page_nbr):
+    def tabSwitched (self, notebook, page, page_nbr):
         #~ print ("cambiata tab")
         if page_nbr == 0:
             btn_calcola.set_label("Calcola Rate")
