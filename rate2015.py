@@ -107,12 +107,12 @@ class Handler:
             conta = 1
             x = x + (x*e/self.v) - valore_rata
             if zz == 1: # stampa calcoli relativi a rata 1
-                print( "\t%d\t \t%0.2f\t \t\t%0.2f" % (conta, e, x) )
+                print( "\t%d\t \t%0.8f\t \t\t%0.2f" % (conta, e, x) )
             while True:
                 conta += 1
                 x = x + (x*e/self.v) - valore_rata
                 if zz == 1 : # stampa calcoli relativi a rate 2..n
-                    print( "\t%d\t \t%0.2f\t \t\t%0.2f" % (conta, e, x) )
+                    print( "\t%d\t \t%0.8f\t \t\t%0.2f" % (conta, e, x) )
                 if conta == nro_rate :
                     break
             if zz == 1: # stampa piè di pagina
