@@ -116,7 +116,7 @@ class Handler:
                 if conta == nro_rate :
                     break
             if zz == 1: # stampa piè di pagina
-                print("\n      numero rate         percentuale interesse       capitale residuo")
+                print("\n    numero rate    percentuale interesse           capitale residuo")
             return x
 
         print("calcolaInteressi")
