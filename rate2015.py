@@ -102,20 +102,24 @@ class Handler:
     def calcolaInteressi(self, button):
 
         def Do_Loop2(zz):
+            print("Do_Loop2")
             x = prestito
             conta = 1
-            x = x + (x*e/v) - valore_rata
+            x = x + (x*e/self.v) - valore_rata
             if zz == 1: # stampa calcoli relativi a rata 1
                 print( "\t%d\t \t%0.2f\t \t\t%0.2f" % (conta, e, x) )
             while True:
                 conta += 1
-                x = x + (x*e/v) - valore_rata
-                if zz = 1 : # stampa calcoli relativi a rate 2..n
+                x = x + (x*e/self.v) - valore_rata
+                if zz == 1 : # stampa calcoli relativi a rate 2..n
                     print( "\t%d\t \t%0.2f\t \t\t%0.2f" % (conta, e, x) )
                 if conta == nro_rate :
                     break
             if zz == 1: # stampa piè di pagina
                 print("\n      numero rate         percentuale interesse       capitale residuo")
+            return x
+
+        print("calcolaInteressi")
 
         prestito = builder.get_object( "prestito" ).get_value()
         valore_rata = builder.get_object( "valore_rata" ).get_value()
@@ -148,16 +152,20 @@ class Handler:
                      0.000000001)   # 11  mantengo valore del 10
         while True:
             operazioni += 1
-            Do_Loop2(0)
+            x = Do_Loop2(0)
             if x < 0:
                 e = e+l
             elif x >0:
                 e = e-l
                 conta2 += 1
                 l = lista_l[conta2]
-            if conta2 = 11 or operazioni = 470:
+            if conta2 == 11 or operazioni == 470:
                 break
         e = e + 0.0000000001
+        print("Fine Calcolo Interessi")
+        # ora che conosciamo il valore di "e" rifacciamo il calcolo
+        # e stampiamolo
+        Do_Loop2(1)
         
              
         
