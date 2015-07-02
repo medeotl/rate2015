@@ -3,11 +3,12 @@
 
 from gi.repository import Gtk
 import sys # per controllo versione python
+from time import sleep # per ritardare eventi 
 
 class Handler:
     k = 9000 ; v = 1200 # valori iniziali per rata mensile
     J = 8 # valore COSTANTE per calcolo interessi
-    
+
     def onDeleteWindow(self, *args):
         Gtk.main_quit(*args)
 
@@ -24,7 +25,9 @@ class Handler:
             builder.get_object( "lbl_valore_rata" ).set_text("Valore rata semestrale")
 
     def calcolaRate(self, button):
-        
+
+        print("Calcolo Rate in corso...")
+        sleep(2)
         def Do_Loop1(zz):
             x = prestito
             conta = 1
@@ -101,8 +104,10 @@ class Handler:
 
     def calcolaInteressi(self, button):
 
+        print("Calcolo Interessi in corso...")
+        sleep(2)
+
         def Do_Loop2(zz):
-            print("Do_Loop2")
             x = prestito
             conta = 1
             x = x + (x*e/self.v) - valore_rata
@@ -118,8 +123,6 @@ class Handler:
             if zz == 1: # stampa piè di pagina
                 print("\n    numero rate    percentuale interesse           capitale residuo")
             return x
-
-        print("calcolaInteressi")
 
         prestito = builder.get_object( "prestito" ).get_value()
         valore_rata = builder.get_object( "valore_rata" ).get_value()
@@ -167,7 +170,16 @@ class Handler:
         # e stampiamolo
         Do_Loop2(1)
         
-             
+    def prova (self, notebook, page, page_nbr):
+        #~ print ("cambiata tab")
+        if page_nbr == 0:
+            btn_calcola.set_label("Calcola Rate")
+            btn_calcola.disconnect_by_func(self.calcolaInteressi)
+            btn_calcola.connect("clicked", self.calcolaRate)
+        else:
+            btn_calcola.set_label("Calcola Interessi")
+            btn_calcola.disconnect_by_func(self.calcolaRate)
+            btn_calcola.connect("clicked", self.calcolaInteressi)
         
 
 # controllo che versione python sia la 3.x
@@ -183,7 +195,9 @@ GUI = './guimockup.ui'
 
 builder = Gtk.Builder()
 builder.add_from_file( GUI )
+btn_calcola = builder.get_object( "calcola" )
 builder.connect_signals( Handler() )
+
 
 window = builder.get_object( "window1" )
 window.show_all()
