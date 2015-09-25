@@ -27,28 +27,29 @@ class Handler:
     def calcolaRate(self, button):
 
         print("Calcolo Rate in corso...")
-        sleep(2)
+
         def Do_Loop1(zz):
             x = prestito
             conta = 1
             inter = x * percentuale / self.v
             x = x + inter - e
-            if zz == 1: # stampa calcoli relativi a rata 1
-                print("\t%d\t \t%0.2f\t \t\t%0.2f\t \t\t%0.2f " % (conta, e, x, inter) )
+            if zz == 1: # salvo il calcolo della prima rata in una lista
+                calcoli = [ (conta, e, x, inter) ]
             while True:
                 conta += 1
                 inter = x * percentuale / self.v
                 x = x + inter - e
-                if zz == 1: # stampa calcoli relativi a rate 2..n
-                    print("\t%d\t \t%0.2f\t \t\t%0.2f\t \t\t%0.2f " % (conta, e, x, inter) )
+                if zz == 1: # salvo i calcoli relativi a rate 2..n
+                    calcoli.append( (conta, e, x, inter) )
                 if conta == nro_rate :
                     break
-            if zz == 1: # stampa piè di pagina
+            if zz == 1: # visualizzo risultati in finestra modale
                 print("\n")
-                if builder.get_object( "rata mensile" ).get_active():
-                    print("   numero rate        rata mensile         capitale residuo          interesse")
-                else:
-                    print("   numero rate       rata semestrale       capitale residuo          interesse")
+                print(calcoli)
+                #~ if builder.get_object( "rata mensile" ).get_active():
+                    #~ print("   numero rate        rata mensile         capitale residuo          interesse")
+                #~ else:
+                    #~ print("   numero rate       rata semestrale       capitale residuo          interesse")
             return x
 
         percentuale = builder.get_object( "percentuale" ).get_value()
@@ -182,6 +183,7 @@ class Handler:
             btn_calcola.connect("clicked", self.calcolaInteressi)
         
 
+
 # controllo che versione python sia la 3.x
 if sys.version[0] == "2":
     # errore! eseguito programma con python 2.x
@@ -199,7 +201,7 @@ btn_calcola = builder.get_object( "calcola" )
 builder.connect_signals( Handler() )
 
 
-window = builder.get_object( "window1" )
+window = builder.get_object( "mainWindow" )
 window.show_all()
 
 Gtk.main()
