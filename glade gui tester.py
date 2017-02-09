@@ -8,12 +8,12 @@ class Handler:
     def onDeleteWindow(self, *args):
         Gtk.main_quit(*args)
 
-gui2betested = './prova.ui'
+gui2betested = './guimockup.ui'
 builder = Gtk.Builder()
 builder.add_from_file(gui2betested)
 builder.connect_signals(Handler())
 
-window = builder.get_object("window1")
+window = builder.get_object("mainWindow")
 window.set_default_size(350,170)
 window.show_all()
 

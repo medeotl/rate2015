@@ -1,6 +1,8 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
+import gi
+gi.require_version('Gtk', '3.0')
 from gi.repository import Gtk
 import sys # per controllo versione python
 from time import sleep # per ritardare eventi 
@@ -9,8 +11,12 @@ class Handler:
     k = 9000 ; v = 1200 # valori iniziali per rata mensile
     J = 8 # valore COSTANTE per calcolo interessi
 
-    def onDeleteWindow(self, *args):
+    def onDeleteMainWindow(self, *args):
         Gtk.main_quit(*args)
+
+    def onDeleteOutputWindow (self, outputWin, event):
+        outputWin.hide()
+        return True
 
     def rataMensile(self, radiobutton):
         if radiobutton.get_active():
@@ -46,6 +52,7 @@ class Handler:
             if zz == 1: # visualizzo risultati in finestra modale
                 print("\n")
                 print(calcoli)
+                outputWin.show_all()
                 #~ if builder.get_object( "rata mensile" ).get_active():
                     #~ print("   numero rate        rata mensile         capitale residuo          interesse")
                 #~ else:
@@ -153,7 +160,9 @@ class Handler:
                        0.0000001,   # 8
                       0.00000001,   # 9
                      0.000000001,   # 10
-                     0.000000001)   # 11  mantengo valore del 10
+                     0.000000001    # 11  mantengo valore del 10
+                  )   
+                   
         while True:
             operazioni += 1
             x = Do_Loop2(0)
@@ -202,6 +211,7 @@ builder.connect_signals( Handler() )
 
 
 window = builder.get_object( "mainWindow" )
+outputWin = builder.get_object( "outputWindow" )
 window.show_all()
 
 Gtk.main()
