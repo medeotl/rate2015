@@ -5,7 +5,6 @@ import gi
 gi.require_version('Gtk', '3.0')
 from gi.repository import Gtk
 import sys # per controllo versione python
-from time import sleep # per ritardare eventi 
 
 class Handler:
     k = 9000 ; v = 1200 # valori iniziali per rata mensile
@@ -113,7 +112,6 @@ class Handler:
     def calcolaInteressi(self, button):
 
         print("Calcolo Interessi in corso...")
-        sleep(2)
 
         def Do_Loop2(zz):
             x = prestito
