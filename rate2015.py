@@ -70,7 +70,7 @@ class Handler:
             dialog.hide()
             return    
 
-        # tutte le condizioni verificate, effettuo il calcolo
+        # effettuo il calcolo
         prestito = builder.get_object( "prestito" ).get_value_as_int()
         e = prestito/nro_rate
         operazioni = 0
@@ -105,8 +105,7 @@ class Handler:
                 break
         e += 0.001
         x = prestito
-        # ora che conosciamo il valore di "e" rifacciamo il calcolo
-        # e stampiamolo
+        # ora conosciamo il valore di "e", rifacciamo il calcolo e stampiamolo
         Do_Loop1(1)
 
     def calcolaInteressi(self, button):
