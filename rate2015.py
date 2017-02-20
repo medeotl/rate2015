@@ -31,8 +31,6 @@ class Handler:
 
     def calcolaRate(self, button):
 
-        print("Calcolo Rate in corso...")
-
         def Do_Loop1(zz):
             x = prestito
             conta = 1
@@ -57,6 +55,8 @@ class Handler:
                 #~ else:
                     #~ print("   numero rate       rata semestrale       capitale residuo          interesse")
             return x
+            
+        print("Calcolo Rate in corso...")
 
         percentuale = builder.get_object( "percentuale" ).get_value()
         nro_rate = builder.get_object( "nro_rate" ).get_value_as_int()
@@ -111,8 +111,6 @@ class Handler:
 
     def calcolaInteressi(self, button):
 
-        print("Calcolo Interessi in corso...")
-
         def Do_Loop2(zz):
             x = prestito
             conta = 1
@@ -129,6 +127,8 @@ class Handler:
             if zz == 1: # stampa piè di pagina
                 print("\n    numero rate    percentuale interesse           capitale residuo")
             return x
+            
+        print("Calcolo Interessi in corso...\n")
 
         prestito = builder.get_object( "prestito" ).get_value()
         valore_rata = builder.get_object( "valore_rata" ).get_value()
