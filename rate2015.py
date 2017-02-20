@@ -141,7 +141,7 @@ class Handler:
     
             dialog.hide()
             return
-        # tutte le condizioni verificate, effettuo il calcolo
+        # effettuo il calcolo
         operazioni = 0
         conta2 = 0
         e = 1
@@ -161,6 +161,7 @@ class Handler:
                   )   
                    
         while True:
+            # ricerchiamo il corretto valore di "e"      
             operazioni += 1
             x = Do_Loop2(0)
             if x < 0:
@@ -173,8 +174,7 @@ class Handler:
                 break
         e = e + 0.0000000001
         print("Fine Calcolo Interessi")
-        # ora che conosciamo il valore di "e" rifacciamo il calcolo
-        # e stampiamolo
+        # ora conosciamo il valore di "e" rifacciamo il calcolo e stampiamolo
         Do_Loop2(1)
         
     def tabSwitched (self, notebook, page, page_nbr):
