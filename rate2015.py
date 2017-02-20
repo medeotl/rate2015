@@ -197,7 +197,7 @@ class Handler:
 if sys.version[0] == "2":
     # errore! eseguito programma con python 2.x
     print("\a") # ding!
-    print("ERRORE!")
+    print("ERRORE! rilevato python 2")
     print("Eseguire il programma con la versione 3.x di Python")
     print("")
     raise SystemExit
