@@ -36,24 +36,29 @@ class Handler:
             conta = 1
             inter = x * percentuale / self.v
             x = x + inter - e
+            output = ""
             if zz == 1: # salvo il calcolo della prima rata in una lista
-                calcoli = [ (conta, e, x, inter) ]
+                output += "  {0:7}  {1:19.2f}  {2:20.2f}  {3:19.2f}\n".format(
+                    conta, e, x, inter)
             while True:
                 conta += 1
                 inter = x * percentuale / self.v
                 x = x + inter - e
                 if zz == 1: # salvo i calcoli relativi a rate 2..n
-                    calcoli.append( (conta, e, x, inter) )
+                    output += "  {0:7}  {1:19.2f}  {2:20.2f}  {3:19.2f}\n" \
+                        .format(conta, e, x, inter)
                 if conta == nro_rate :
                     break
             if zz == 1: # visualizzo risultati in finestra modale
-                print("\n")
-                print(calcoli)
+                if builder.get_object( "rata mensile" ).get_active():
+                    output += ("   numero rate        rata mensile         capitale residuo          interesse")
+                else:
+                    output += ("   numero rate       rata semestrale       capitale residuo          interesse")
+                
+                txt_buffer = builder.get_object( "output_buffer" )
+                txt_buffer.set_text(output)                
+                
                 outputWin.show_all()
-                #~ if builder.get_object( "rata mensile" ).get_active():
-                    #~ print("   numero rate        rata mensile         capitale residuo          interesse")
-                #~ else:
-                    #~ print("   numero rate       rata semestrale       capitale residuo          interesse")
             return x
             
         print("Calcolo Rate in corso...")
