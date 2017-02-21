@@ -31,6 +31,9 @@
         </child>
       </object>
     </child>
+    <child>
+      <placeholder/>
+    </child>
   </object>
   <object class="GtkAdjustment" id="nro_rate_adjustment">
     <property name="lower">2</property>
@@ -39,6 +42,7 @@
     <property name="step_increment">1</property>
     <property name="page_increment">10</property>
   </object>
+  <object class="GtkTextBuffer" id="output_buffer"/>
   <object class="GtkAdjustment" id="percentuale_adjustment">
     <property name="upper">100</property>
     <property name="value">4</property>
@@ -52,7 +56,6 @@
     <property name="step_increment">500</property>
     <property name="page_increment">500</property>
   </object>
-  <object class="GtkTextBuffer" id="textbuffer"/>
   <object class="GtkAdjustment" id="valore_rata_adjustment">
     <property name="upper">100000</property>
     <property name="value">520</property>
@@ -369,7 +372,7 @@
           <object class="GtkTextView" id="textview1">
             <property name="visible">True</property>
             <property name="can_focus">True</property>
-            <property name="buffer">textbuffer</property>
+            <property name="buffer">output_buffer</property>
           </object>
         </child>
       </object>
