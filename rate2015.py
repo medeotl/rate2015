@@ -36,8 +36,8 @@ class Handler:
             conta = 1
             inter = x * percentuale / self.v
             x = x + inter - e
-            output = "\n"
             if zz == 1: # salvo il calcolo della prima rata in una lista
+                output = "\n"
                 output += "  {0:7}   {1:19.2f}   {2:20.2f}   {3:19.2f}\n" \
                     .format(conta, e, x, inter)
             while True:
