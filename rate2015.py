@@ -182,9 +182,8 @@ class Handler:
         # ora conosciamo il valore di "e" rifacciamo il calcolo e stampiamolo
         Do_Loop2(1)
         
-    def tabSwitched (self, notebook, page, page_nbr):
-        #~ print ("cambiata tab")
-        if page_nbr == 0:
+    def pageChanged (self, stack, event):
+        if stack.get_visible_child_name() == "pagina rate":
             btn_calcola.set_label("Calcola Rate")
             btn_calcola.disconnect_by_func(self.calcolaInteressi)
             btn_calcola.connect("clicked", self.calcolaRate)
