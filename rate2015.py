@@ -14,6 +14,7 @@ class Handler:
         Gtk.main_quit(*args)
 
     def onDeleteOutputWindow (self, outputWin, event):
+        print ( outputWin.get_size() )
         outputWin.hide()
         return True
 
@@ -21,13 +22,15 @@ class Handler:
         if radiobutton.get_active():
             self.k = 9000
             self.v = 1200
-            builder.get_object( "lbl_valore_rata" ).set_text("Valore rata mensile")
+            builder.get_object( "lbl_valore_rata" ) \
+                .set_text("Valore rata mensile")
 
     def rataSemestrale(self, radiobutton):
         if radiobutton.get_active():
             self.k = 1500
             self.v = 200
-            builder.get_object( "lbl_valore_rata" ).set_text("Valore rata semestrale")
+            builder.get_object( "lbl_valore_rata" ) \
+                .set_text("Valore rata semestrale")
 
     def calcolaRate(self, button):
 
@@ -59,6 +62,7 @@ class Handler:
                 txt_buffer = builder.get_object( "output_buffer" )
                 txt_buffer.set_text(output)                
                 
+                outputWin.resize(860,510)
                 outputWin.show_all()
             return x
             
@@ -133,11 +137,12 @@ class Handler:
                     break
             if zz == 1: # stampa piè di pagina
                 output += "\n"
-                output += ("    numero rate    percentuale interesse    capitale residuo")
+                output += ("    numero rate    percentuale interesse    capitale residuo    ")
 
                 txt_buffer = builder.get_object( "output_buffer" )
                 txt_buffer.set_text(output)
 
+                outputWin.resize(680,510)
                 outputWin.show_all()
             return x
             
