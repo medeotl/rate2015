@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/python3
 # -*- coding: utf-8 -*-
 
 import gi
@@ -17,6 +17,10 @@ class Handler:
         print ( outputWin.get_size() )
         outputWin.hide()
         return True
+
+    def onBtnDialogClicked (self, button):
+        print("TODO: abilitare stampa")
+        outputWin.hide()
 
     def rataMensile(self, radiobutton):
         if radiobutton.get_active():
@@ -41,31 +45,34 @@ class Handler:
             x = x + inter - e
             if zz == 1: # salvo il calcolo della prima rata in una lista
                 output = "\n"
-                output += "  {0:7}   {1:19.2f}   {2:20.2f}   {3:19.2f}\n" \
+                output += "  {0:7}   {1:19.2f}   {2:20.2f}   {3:19.2f}" \
                     .format(conta, e, x, inter)
+                output += "\n"
             while True:
                 conta += 1
                 inter = x * percentuale / self.v
                 x = x + inter - e
                 if zz == 1: # salvo i calcoli relativi a rate 2..n
-                    output += "  {0:7}   {1:19.2f}   {2:20.2f}   {3:19.2f}\n" \
+                    output += "  {0:7}   {1:19.2f}   {2:20.2f}   {3:19.2f}" \
                         .format(conta, e, x, inter)
+                    output += "\n"
                 if conta == nro_rate :
                     break
             if zz == 1: # visualizzo risultati in finestra modale
                 output += "\n"
                 if builder.get_object( "rata mensile" ).get_active():
-                    output += ("   numero rate        rata mensile         capitale residuo          interesse")
+                    output += ("    numero rate        rata mensile         capitale residuo          interesse    ")
                 else:
-                    output += ("   numero rate       rata semestrale       capitale residuo          interesse")
-                
+                    output += ("    numero rate       rata semestrale       capitale residuo          interesse    ")
+                output += "\n"
+
                 txt_buffer = builder.get_object( "output_buffer" )
-                txt_buffer.set_text(output)                
-                
-                outputWin.resize(860,510)
+                txt_buffer.set_text(output)
+
+                outputWin.resize(1050,510)
                 outputWin.show_all()
             return x
-            
+
         print("Calcolo Rate in corso...")
 
         percentuale = builder.get_object( "percentuale" ).get_value()
@@ -78,7 +85,7 @@ class Handler:
             dialog.run()
 
             dialog.hide()
-            return    
+            return
 
         # effettuo il calcolo
         prestito = builder.get_object( "prestito" ).get_value_as_int()
@@ -126,26 +133,29 @@ class Handler:
             x = x + (x*e/self.v) - valore_rata
             if zz == 1: # stampa calcoli relativi a rata 1
                 output = "\n"
-                output += "   {0:7}  {1:19.2f}    {2:20.2f}\n".format(conta, e, x)
+                output += "   {0:7}  {1:19.2f}    {2:20.2f}".format(conta, e, x)
+                output += "\n"
+
             while True:
                 conta += 1
                 x = x + (x*e/self.v) - valore_rata
                 if zz == 1 : # stampa calcoli relativi a rate 2..n
-                    output += "   {0:7}  {1:19.2f}    {2:20.2f}\n" \
-                        .format(conta, e, x)
+                    output += "   {0:7}  {1:19.2f}    {2:20.2f}".format(conta, e, x)
+                    output += "\n"
                 if conta == nro_rate :
                     break
             if zz == 1: # stampa piè di pagina
                 output += "\n"
                 output += ("    numero rate    percentuale interesse    capitale residuo    ")
+                output += "\n"
 
                 txt_buffer = builder.get_object( "output_buffer" )
                 txt_buffer.set_text(output)
 
-                outputWin.resize(680,510)
+                outputWin.resize(815,510)
                 outputWin.show_all()
             return x
-            
+
         print("Calcolo Interessi in corso...\n")
 
         prestito = builder.get_object( "prestito" ).get_value()
@@ -157,7 +167,7 @@ class Handler:
             # errore!
             dialog = builder.get_object( "error_percentuale_dialog" )
             dialog.run()
-    
+
             dialog.hide()
             return
         # effettuo il calcolo
@@ -177,10 +187,10 @@ class Handler:
                       0.00000001,   # 9
                      0.000000001,   # 10
                      0.000000001    # 11  mantengo valore del 10
-                  )   
-                   
+                  )
+
         while True:
-            # ricerchiamo il corretto valore di "e"      
+            # ricerchiamo il corretto valore di "e"
             operazioni += 1
             x = Do_Loop2(0)
             if x < 0:
@@ -195,7 +205,7 @@ class Handler:
         print("Fine Calcolo Interessi")
         # ora conosciamo il valore di "e" rifacciamo il calcolo e stampiamolo
         Do_Loop2(1)
-        
+
     def pageChanged (self, stack, event):
         if stack.get_visible_child_name() == "pagina rate":
             btn_calcola.set_label("Calcola Rate")
@@ -205,7 +215,7 @@ class Handler:
             btn_calcola.set_label("Calcola Interessi")
             btn_calcola.disconnect_by_func(self.calcolaRate)
             btn_calcola.connect("clicked", self.calcolaInteressi)
-        
+
 
 
 # controllo che versione python sia la 3.x
@@ -216,7 +226,7 @@ if sys.version[0] == "2":
     print("Eseguire il programma con la versione 3.x di Python")
     print("")
     raise SystemExit
-    
+
 GUI = './guimockup.ui'
 
 builder = Gtk.Builder()
