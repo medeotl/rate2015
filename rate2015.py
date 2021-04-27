@@ -124,6 +124,8 @@ class Handler:
         x = prestito
         # ora conosciamo il valore di "e", rifacciamo il calcolo e stampiamolo
         Do_Loop1(1)
+        print("Fine Calcolo Rate")
+
 
     def calcolaInteressi(self, button):
 
@@ -202,9 +204,9 @@ class Handler:
             if conta2 == 11 or operazioni == 470:
                 break
         e = e + 0.0000000001
-        print("Fine Calcolo Interessi")
         # ora conosciamo il valore di "e" rifacciamo il calcolo e stampiamolo
         Do_Loop2(1)
+        print("Fine Calcolo Interessi")
 
     def pageChanged (self, stack, event):
         if stack.get_visible_child_name() == "pagina rate":
