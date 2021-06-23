@@ -3,8 +3,10 @@
 
 import gi
 gi.require_version('Gtk', '3.0')
-from gi.repository import Gtk
+gi.require_version('PangoCairo', '1.0')
+from gi.repository import Gtk, Gio, GLib, Pango, PangoCairo
 import sys # per controllo versione python
+import math
 
 class Handler:
     k = 9000 ; v = 1200 # valori iniziali per rata mensile
@@ -18,23 +20,17 @@ class Handler:
         outputWin.hide()
         return True
 
-    def onBtnDialogClicked (self, button):
-        print("TODO: abilitare stampa")
-        outputWin.hide()
-
     def rataMensile(self, radiobutton):
         if radiobutton.get_active():
             self.k = 9000
             self.v = 1200
-            builder.get_object( "lbl_valore_rata" ) \
-                .set_text("Valore rata mensile")
+            builder.get_object( "lbl_valore_rata" ).set_text( "Valore rata mensile" )
 
     def rataSemestrale(self, radiobutton):
         if radiobutton.get_active():
             self.k = 1500
             self.v = 200
-            builder.get_object( "lbl_valore_rata" ) \
-                .set_text("Valore rata semestrale")
+            builder.get_object( "lbl_valore_rata" ).set_text( "Valore rata semestrale" )
 
     def calcolaRate(self, button):
 
@@ -43,7 +39,7 @@ class Handler:
             conta = 1
             inter = x * percentuale / self.v
             x = x + inter - e
-            if zz == 1: # salvo il calcolo della prima rata in una lista
+            if zz == 1: # memorizzo il calcolo della prima rata
                 output = "\n"
                 output += "  {0:7}   {1:19.2f}   {2:20.2f}   {3:19.2f}" \
                     .format(conta, e, x, inter)
@@ -52,7 +48,7 @@ class Handler:
                 conta += 1
                 inter = x * percentuale / self.v
                 x = x + inter - e
-                if zz == 1: # salvo i calcoli relativi a rate 2..n
+                if zz == 1: # memorizzo i calcoli relativi a rate 2..n
                     output += "  {0:7}   {1:19.2f}   {2:20.2f}   {3:19.2f}" \
                         .format(conta, e, x, inter)
                     output += "\n"
@@ -73,7 +69,7 @@ class Handler:
                 outputWin.show_all()
             return x
 
-        print("Calcolo Rate in corso...")
+        print( "Calcolo Rate in corso..." )
 
         percentuale = builder.get_object( "percentuale" ).get_value()
         nro_rate = builder.get_object( "nro_rate" ).get_value_as_int()
@@ -124,8 +120,7 @@ class Handler:
         x = prestito
         # ora conosciamo il valore di "e", rifacciamo il calcolo e stampiamolo
         Do_Loop1(1)
-        print("Fine Calcolo Rate")
-
+        print( "Fine Calcolo Rate" )
 
     def calcolaInteressi(self, button):
 
@@ -158,7 +153,7 @@ class Handler:
                 outputWin.show_all()
             return x
 
-        print("Calcolo Interessi in corso...\n")
+        print( "Calcolo Interessi in corso...\n" )
 
         prestito = builder.get_object( "prestito" ).get_value()
         valore_rata = builder.get_object( "valore_rata" ).get_value()
@@ -206,27 +201,174 @@ class Handler:
         e = e + 0.0000000001
         # ora conosciamo il valore di "e" rifacciamo il calcolo e stampiamolo
         Do_Loop2(1)
-        print("Fine Calcolo Interessi")
+        print( "Fine Calcolo Interessi" )
 
     def pageChanged (self, stack, event):
         if stack.get_visible_child_name() == "pagina rate":
-            btn_calcola.set_label("Calcola Rate")
+            btn_calcola.set_label( "Calcola Rate" )
             btn_calcola.disconnect_by_func(self.calcolaInteressi)
-            btn_calcola.connect("clicked", self.calcolaRate)
+            btn_calcola.connect( "clicked", self.calcolaRate )
         else:
-            btn_calcola.set_label("Calcola Interessi")
+            btn_calcola.set_label( "Calcola Interessi" )
             btn_calcola.disconnect_by_func(self.calcolaRate)
-            btn_calcola.connect("clicked", self.calcolaInteressi)
+            btn_calcola.connect( "clicked", self.calcolaInteressi)
 
+    ######----------               STAMPA               ----------######
+
+    def stampa (self, button):
+        HEADER_HEIGHT = 10 * 72 / 25.4
+        HEADER_GAP = 3 * 72 / 25.4
+
+        o_buffer = builder.get_object( "output_buffer" )
+        start, end = o_buffer.get_bounds()
+        output = o_buffer.get_text(start, end, True)
+        parent = builder.get_object( "outputWindow" )
+        tipo_calcolo = btn_calcola.get_label()
+        print ("stampo")
+
+        def prepara_stampa():
+            self.operation = Gtk.PrintOperation()
+            print_data = {
+                          'filename': output,
+                          'font_size': 12.0,
+                          'lines_per_page': 0,
+                          'lines': None,
+                          'num_lines': 0,
+                          'num_pages': 0
+                         }
+
+            self.operation.connect('begin-print', begin_print, print_data)
+            self.operation.connect('draw-page', draw_page, print_data)
+            self.operation.connect('end-print', end_print, print_data)
+
+            self.operation.set_use_full_page(False)
+            self.operation.set_unit(Gtk.Unit.POINTS)
+            self.operation.set_embed_page_setup(True)
+
+            settings = Gtk.PrintSettings()
+
+            dir = GLib.get_user_special_dir(GLib.UserDirectory.DIRECTORY_DOCUMENTS)
+            if dir is None:
+                dir = GLib.get_home_dir()
+            if settings.get(Gtk.PRINT_SETTINGS_OUTPUT_FILE_FORMAT) == 'ps':
+                ext = '.ps'
+            elif settings.get(Gtk.PRINT_SETTINGS_OUTPUT_FILE_FORMAT) == 'svg':
+                ext = '.svg'
+            else:
+                ext = '.pdf'
+
+            uri = "file://%s/gtk-demo%s" % (dir, ext)
+            settings.set(Gtk.PRINT_SETTINGS_OUTPUT_URI, uri)
+            self.operation.set_print_settings(settings)
+
+        def begin_print(operation, print_ctx, print_data):
+            height = print_ctx.get_height() - HEADER_HEIGHT - HEADER_GAP
+            print_data['lines_per_page'] = \
+                math.floor(height / print_data['font_size'])
+
+            s = output
+
+            print_data['lines'] = s.split('\n')
+            print_data['num_lines'] = len(print_data['lines'])
+
+            print_data['num_pages'] = \
+                (print_data['num_lines'] - 1) / print_data['lines_per_page'] + 1
+
+            operation.set_n_pages(print_data['num_pages'])
+
+        def draw_page(operation, print_ctx, page_num, print_data):
+            cr = print_ctx.get_cairo_context()
+            width = print_ctx.get_width()
+
+            cr.rectangle(0, 0, width, HEADER_HEIGHT)
+            cr.set_source_rgb(0.8, 0.8, 0.8)
+            cr.fill_preserve()
+
+            cr.set_source_rgb(0, 0, 0)
+            cr.set_line_width(1)
+            cr.stroke()
+
+            layout = print_ctx.create_pango_layout()
+            desc = Pango.FontDescription('sans 14')
+            layout.set_font_description(desc)
+
+            layout.set_text(tipo_calcolo, -1)
+            (text_width, text_height) = layout.get_pixel_size()
+
+            if text_width > width:
+                layout.set_width(width)
+                layout.set_ellipsize(Pango.EllipsizeMode.START)
+                (text_width, text_height) = layout.get_pixel_size()
+
+            cr.move_to((width - text_width) / 2,
+                       (HEADER_HEIGHT - text_height) / 2)
+            PangoCairo.show_layout(cr, layout)
+
+            page_str = "%d/%d" % (page_num + 1, print_data['num_pages'])
+            layout.set_text(page_str, -1)
+
+            layout.set_width(-1)
+            (text_width, text_height) = layout.get_pixel_size()
+            cr.move_to(width - text_width - 4,
+                       (HEADER_HEIGHT - text_height) / 2)
+            PangoCairo.show_layout(cr, layout)
+
+            layout = print_ctx.create_pango_layout()
+
+            desc = Pango.FontDescription('monospace')
+            desc.set_size(print_data['font_size'] * Pango.SCALE)
+            layout.set_font_description(desc)
+
+            cr.move_to(0, HEADER_HEIGHT + HEADER_GAP)
+            lines_pp = int(print_data['lines_per_page'])
+            num_lines = print_data['num_lines']
+            data_lines = print_data['lines']
+            font_size = print_data['font_size']
+            line = page_num * lines_pp
+
+            for i in range(lines_pp):
+                if line >= num_lines:
+                    break
+
+                layout.set_text(data_lines[line], -1)
+                PangoCairo.show_layout(cr, layout)
+                cr.rel_move_to(0, font_size)
+                line += 1
+
+        def end_print(operation, print_ctx, print_data):
+            pass
+
+        prepara_stampa()
+        a = Gtk.PrintOperationAction.PRINT_DIALOG
+        result = self.operation.run(a, parent)
+
+        if result == Gtk.PrintOperationResult.ERROR:
+            print("Errore")
+            message = self.operation.get_error()
+
+            dialog = Gtk.MessageDialog(parent,
+                                       0,
+                                       Gtk.MessageType.ERROR,
+                                       Gtk.ButtonsType.CLOSE,
+                                       message)
+
+            dialog.run()
+            dialog.destroy()
+
+        output = builder.get_object( "output_buffer" )
+
+
+
+######----------                MAIN                ----------######
 
 
 # controllo che versione python sia la 3.x
 if sys.version[0] == "2":
     # errore! eseguito programma con python 2.x
-    print("\a") # ding!
-    print("ERRORE! rilevato python 2")
-    print("Eseguire il programma con la versione 3.x di Python")
-    print("")
+    print( "\a" ) # ding!
+    print( "ERRORE! rilevato python 2" )
+    print( "Eseguire il programma con la versione 3.x di Python" )
+    print( "" )
     raise SystemExit
 
 GUI = './guimockup.ui'
