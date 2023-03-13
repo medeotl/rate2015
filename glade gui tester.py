@@ -2,6 +2,8 @@
 # -*- coding: utf-8 -*-
 
 # impostare delete-event di GtkWidget a onDeleteWindow in GLADE per la finestra
+import gi
+gi.require_version('Gtk', '3.0')
 from gi.repository import Gtk
 
 class Handler:
