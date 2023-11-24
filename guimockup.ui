@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Generated with glade 3.38.2 -->
+<!-- Generated with glade 3.40.0 -->
 <interface>
-  <requires lib="gtk+" version="3.20"/>
+  <requires lib="gtk+" version="3.24"/>
   <object class="GtkMessageDialog" id="error_percentuale_dialog">
     <property name="can-focus">False</property>
     <property name="modal">True</property>
@@ -90,47 +90,21 @@
           <object class="GtkStack" id="stack">
             <property name="visible">True</property>
             <property name="can-focus">False</property>
+            <property name="halign">center</property>
+            <property name="valign">center</property>
             <property name="transition-duration">800</property>
             <property name="transition-type">slide-left-right</property>
+            <property name="interpolate-size">True</property>
             <signal name="notify::visible-child" handler="pageChanged" swapped="no"/>
             <child>
-              <!-- n-columns=2 n-rows=3 -->
+              <!-- n-columns=3 n-rows=3 -->
               <object class="GtkGrid" id="ratePage">
                 <property name="visible">True</property>
                 <property name="can-focus">False</property>
+                <property name="valign">center</property>
                 <property name="border-width">18</property>
                 <property name="row-spacing">6</property>
                 <property name="column-spacing">6</property>
-                <property name="column-homogeneous">True</property>
-                <child>
-                  <object class="GtkSpinButton" id="prestito">
-                    <property name="visible">True</property>
-                    <property name="can-focus">True</property>
-                    <property name="text" translatable="yes">10000</property>
-                    <property name="adjustment">prestito_adjustment</property>
-                    <property name="numeric">True</property>
-                    <property name="value">10000</property>
-                  </object>
-                  <packing>
-                    <property name="left-attach">1</property>
-                    <property name="top-attach">0</property>
-                  </packing>
-                </child>
-                <child>
-                  <object class="GtkSpinButton" id="percentuale">
-                    <property name="visible">True</property>
-                    <property name="can-focus">True</property>
-                    <property name="text" translatable="yes">4.00</property>
-                    <property name="adjustment">percentuale_adjustment</property>
-                    <property name="digits">2</property>
-                    <property name="numeric">True</property>
-                    <property name="value">4</property>
-                  </object>
-                  <packing>
-                    <property name="left-attach">1</property>
-                    <property name="top-attach">1</property>
-                  </packing>
-                </child>
                 <child>
                   <object class="GtkLabel" id="label3">
                     <property name="visible">True</property>
@@ -168,6 +142,36 @@
                   </packing>
                 </child>
                 <child>
+                  <object class="GtkSpinButton" id="prestito">
+                    <property name="visible">True</property>
+                    <property name="can-focus">True</property>
+                    <property name="text" translatable="yes">10000</property>
+                    <property name="input-purpose">digits</property>
+                    <property name="adjustment">prestito_adjustment</property>
+                    <property name="numeric">True</property>
+                    <property name="value">10000</property>
+                  </object>
+                  <packing>
+                    <property name="left-attach">2</property>
+                    <property name="top-attach">0</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkSpinButton" id="percentuale">
+                    <property name="visible">True</property>
+                    <property name="can-focus">True</property>
+                    <property name="text" translatable="yes">4.00</property>
+                    <property name="adjustment">percentuale_adjustment</property>
+                    <property name="digits">2</property>
+                    <property name="numeric">True</property>
+                    <property name="value">4</property>
+                  </object>
+                  <packing>
+                    <property name="left-attach">2</property>
+                    <property name="top-attach">1</property>
+                  </packing>
+                </child>
+                <child>
                   <object class="GtkSpinButton" id="nro_rate">
                     <property name="visible">True</property>
                     <property name="can-focus">True</property>
@@ -176,6 +180,45 @@
                     <property name="adjustment">nro_rate_adjustment</property>
                     <property name="numeric">True</property>
                     <property name="value">20</property>
+                  </object>
+                  <packing>
+                    <property name="left-attach">2</property>
+                    <property name="top-attach">2</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkLabel">
+                    <property name="visible">True</property>
+                    <property name="can-focus">False</property>
+                    <property name="margin-start">24</property>
+                    <property name="label" translatable="yes">&lt;b&gt;€&lt;/b&gt;</property>
+                    <property name="use-markup">True</property>
+                  </object>
+                  <packing>
+                    <property name="left-attach">1</property>
+                    <property name="top-attach">0</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkLabel">
+                    <property name="visible">True</property>
+                    <property name="can-focus">False</property>
+                    <property name="margin-start">24</property>
+                    <property name="label" translatable="yes">&lt;b&gt;%&lt;/b&gt;</property>
+                    <property name="use-markup">True</property>
+                  </object>
+                  <packing>
+                    <property name="left-attach">1</property>
+                    <property name="top-attach">1</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkLabel">
+                    <property name="visible">True</property>
+                    <property name="can-focus">False</property>
+                    <property name="margin-start">24</property>
+                    <property name="label" translatable="yes">&lt;b&gt;#&lt;/b&gt;</property>
+                    <property name="use-markup">True</property>
                   </object>
                   <packing>
                     <property name="left-attach">1</property>
@@ -189,53 +232,13 @@
               </packing>
             </child>
             <child>
-              <!-- n-columns=2 n-rows=3 -->
+              <!-- n-columns=3 n-rows=3 -->
               <object class="GtkGrid" id="interessiPage">
                 <property name="visible">True</property>
                 <property name="can-focus">False</property>
                 <property name="border-width">18</property>
                 <property name="row-spacing">6</property>
                 <property name="column-spacing">6</property>
-                <property name="column-homogeneous">True</property>
-                <child>
-                  <object class="GtkSpinButton" id="prestito_int">
-                    <property name="visible">True</property>
-                    <property name="can-focus">True</property>
-                    <property name="text" translatable="yes">10000</property>
-                    <property name="adjustment">prestito_adjustment</property>
-                    <property name="value">10000</property>
-                  </object>
-                  <packing>
-                    <property name="left-attach">1</property>
-                    <property name="top-attach">0</property>
-                  </packing>
-                </child>
-                <child>
-                  <object class="GtkSpinButton" id="valore_rata">
-                    <property name="visible">True</property>
-                    <property name="can-focus">True</property>
-                    <property name="text" translatable="yes">520</property>
-                    <property name="adjustment">valore_rata_adjustment</property>
-                    <property name="value">520</property>
-                  </object>
-                  <packing>
-                    <property name="left-attach">1</property>
-                    <property name="top-attach">1</property>
-                  </packing>
-                </child>
-                <child>
-                  <object class="GtkSpinButton" id="nro_rate_int">
-                    <property name="visible">True</property>
-                    <property name="can-focus">True</property>
-                    <property name="text" translatable="yes">20</property>
-                    <property name="adjustment">nro_rate_adjustment</property>
-                    <property name="value">20</property>
-                  </object>
-                  <packing>
-                    <property name="left-attach">1</property>
-                    <property name="top-attach">2</property>
-                  </packing>
-                </child>
                 <child>
                   <object class="GtkLabel" id="label6">
                     <property name="visible">True</property>
@@ -252,7 +255,7 @@
                   <object class="GtkLabel" id="lbl_valore_rata">
                     <property name="visible">True</property>
                     <property name="can-focus">False</property>
-                    <property name="label" translatable="yes">Valore rata mensile</property>
+                    <property name="label" translatable="yes">Rata mensile</property>
                     <property name="xalign">0</property>
                   </object>
                   <packing>
@@ -269,6 +272,84 @@
                   </object>
                   <packing>
                     <property name="left-attach">0</property>
+                    <property name="top-attach">2</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkSpinButton" id="prestito_int">
+                    <property name="visible">True</property>
+                    <property name="can-focus">True</property>
+                    <property name="text" translatable="yes">10000</property>
+                    <property name="adjustment">prestito_adjustment</property>
+                    <property name="value">10000</property>
+                  </object>
+                  <packing>
+                    <property name="left-attach">2</property>
+                    <property name="top-attach">0</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkSpinButton" id="valore_rata">
+                    <property name="visible">True</property>
+                    <property name="can-focus">True</property>
+                    <property name="text" translatable="yes">520</property>
+                    <property name="adjustment">valore_rata_adjustment</property>
+                    <property name="value">520</property>
+                  </object>
+                  <packing>
+                    <property name="left-attach">2</property>
+                    <property name="top-attach">1</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkSpinButton" id="nro_rate_int">
+                    <property name="visible">True</property>
+                    <property name="can-focus">True</property>
+                    <property name="text" translatable="yes">20</property>
+                    <property name="adjustment">nro_rate_adjustment</property>
+                    <property name="value">20</property>
+                  </object>
+                  <packing>
+                    <property name="left-attach">2</property>
+                    <property name="top-attach">2</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkLabel">
+                    <property name="visible">True</property>
+                    <property name="can-focus">False</property>
+                    <property name="margin-start">24</property>
+                    <property name="label" translatable="yes">&lt;b&gt;€&lt;/b&gt;</property>
+                    <property name="use-markup">True</property>
+                  </object>
+                  <packing>
+                    <property name="left-attach">1</property>
+                    <property name="top-attach">0</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkLabel">
+                    <property name="visible">True</property>
+                    <property name="can-focus">False</property>
+                    <property name="margin-start">24</property>
+                    <property name="label" translatable="yes">&lt;b&gt;€&lt;/b&gt;</property>
+                    <property name="use-markup">True</property>
+                  </object>
+                  <packing>
+                    <property name="left-attach">1</property>
+                    <property name="top-attach">1</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkLabel">
+                    <property name="visible">True</property>
+                    <property name="can-focus">False</property>
+                    <property name="margin-start">24</property>
+                    <property name="label" translatable="yes">&lt;b&gt;#&lt;/b&gt;</property>
+                    <property name="use-markup">True</property>
+                  </object>
+                  <packing>
+                    <property name="left-attach">1</property>
                     <property name="top-attach">2</property>
                   </packing>
                 </child>
