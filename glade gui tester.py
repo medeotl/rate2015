@@ -10,7 +10,7 @@ class Handler:
     def onDeleteWindow(self, *args):
         Gtk.main_quit(*args)
 
-gui2betested = './guimockup.ui'
+gui2betested = './finestraPrincipale.ui'
 builder = Gtk.Builder()
 builder.add_from_file(gui2betested)
 builder.connect_signals(Handler())

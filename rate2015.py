@@ -371,7 +371,7 @@ if sys.version[0] == "2":
     print( "" )
     raise SystemExit
 
-GUI = './guimockup.ui'
+GUI = './finestraPrincipale.ui'
 
 builder = Gtk.Builder()
 builder.add_from_file( GUI )
